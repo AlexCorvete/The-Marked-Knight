@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>THE MARKED KNIGHT - A Symphony of Six Blades | Oficial</title>
+    
+    <meta name="description" content="Ouça THE MARKED KNIGHT: A Symphony of Six Blades. Uma ópera rock épica e imersiva sobre a jornada do Cavaleiro Marcado através do labirinto.">
+    <meta name="keywords" content="The Marked Knight, ópera rock, symphony of six blades, música épica, metal sinfônico, álbum conceitual, fantasy music">
+    <meta name="author" content="SEU NOME AQUI">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="THE MARKED KNIGHT - Oficial">
+    <meta property="og:description" content="A Symphony of Six Blades. Explore a ópera rock épica do Cavaleiro Marcado.">
+    <meta property="og:image" content="recursos/01 - The Awakening of Fire.jpeg"> 
+    <meta property="og:url" content="https://www.URL_DO_SEU_SITE.com.br">
+    <meta property="og:type" content="website">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            margin: 0;
+            background-color: #000; 
+            font-family: 'Georgia', serif; 
+            background-attachment: fixed;
+        }
+
+        @media (min-width: 768px) {
+            body, html {
+                height: 100%;
+                overflow: hidden; 
+            }
+        }
+
+        @media (max-width: 767px) {
+            body, html {
+                min-height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+        }
+
+        /* --- MUDANÇA AQUI: O Fundo agora é fixo usando a sua imagem 1080p --- */
+        .bg-blur {
+            background-image: url('recursos/CapaDiscoCavaleiroDasEspadasAmaldicoadas.png'); /* <-- COLOQUE O NOME DA SUA IMAGEM AQUI */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            /* Deixei levemente escuro e borrado para a letra branca aparecer bem */
+            filter: blur(0px) brightness(100%); 
+            transition: filter 0.5s ease;
+        }
+
+        .player-inactive {
+            filter: blur(15px) brightness(40%) !important;
+        }
+
+        .page-content {
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .text-block h1 {
+            color: white;
+            font-size: 3.5rem; 
+            font-weight: 300; 
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .text-block p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.25rem;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 767px) {
+            .page-content {
+                height: auto;
+                min-height: 100vh;
+                padding-top: 3rem;
+                padding-bottom: 140px; 
+            }
+            .text-block {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            .text-block h1 {
+                font-size: 2.5rem; 
+            }
+        }
+
+        #songsCarousel {
+            aspect-ratio: 1/1; 
+            border-radius: 20px; 
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
+            background-color: #111; 
+            width: 100%;
+            max-width: 500px; 
+            margin: 0 auto;
+            position: relative;
+        }
+
+        @media (max-width: 767px) {
+            #songsCarousel {
+                width: 90%; 
+            }
+        }
+
+        /* --- CSS DO CARROSSEL VERTICAL --- */
+        .carousel-item {
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .carousel-item-next:not(.carousel-item-start),
+        .active.carousel-item-end {
+            transform: translateY(100%) translateX(0) !important;
+        }
+        .carousel-item-prev:not(.carousel-item-end),
+        .active.carousel-item-start {
+            transform: translateY(-100%) translateX(0) !important;
+        }
+        .active,
+        .carousel-item-next.carousel-item-start,
+        .carousel-item-prev.carousel-item-end {
+            transform: translateY(0) translateX(0) !important;
+        }
+        /* --------------------------------- */
+
+        .carousel-item img {
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        .carousel-caption-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+            color: white;
+            text-align: left; 
+        }
+        .carousel-caption-overlay h5 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .carousel-caption-overlay p {
+            margin: 0;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Controles invisíveis do carrossel */
+        .vertical-control {
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            left: 0;
+            opacity: 0; 
+            transition: opacity 0.3s;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            border: none;
+        }
+        .vertical-control:hover {
+            opacity: 0.8; 
+        }
+        .top-control {
+            top: 0;
+            align-items: flex-start;
+            padding-top: 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+        }
+        .bottom-control {
+            bottom: 0;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        }
+
+        /* --- ESTILOS DO PLAYER ATUALIZADO --- */
+        #customPlayer {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 650px;
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 767px) {
+            #customPlayer {
+                bottom: 20px;
+                padding: 10px 15px;
+                gap: 6px;
+            }
+            .time-text {
+                font-size: 0.75rem;
+                min-width: 30px;
+            }
+        }
+
+        .control-btn {
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: white;
+            color: black;
+            cursor: pointer;
+            transition: transform 0.2s;
+            flex-shrink: 0; 
+        }
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #playPauseBtn { width: 45px; height: 45px; font-size: 1.3rem; }
+        .side-btn { width: 35px; height: 35px; font-size: 0.9rem; }
+
+        .time-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+            cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: white;
+            margin-top: -4px; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blur" id="bgLayer"></div>
+
+    <div class="page-content container-fluid h-100">
+        <div class="row h-100 align-items-center">
+            
+            <div class="col-md-7 col-12 d-flex justify-content-center">
+                <div class="text-block px-md-5 px-3">
+                    <h1>THE MARKED KNIGHT</h1> <p>Symphony of Six Blades</p>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-12 d-flex justify-content-center">
+                
+                <div id="songsCarousel" class="carousel slide" data-bs-interval="false">
+                    
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="recursos/01 - The Awakening of Fire.jpeg" class="d-block w-100" alt="Capa Música I">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música I</h5><p>The Awakening of Fire</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/02 - The Glacial Requiem.jpeg" class="d-block w-100" alt="Capa Música II">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música II</h5><p>The Glacial Requiem</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/03 - The Lightning Cathedral.jpeg" class="d-block w-100" alt="Capa Música III">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música III</h5><p>The Lightning Cathedral</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/04 - The Venomous Sacrament.jpeg" class="d-block w-100" alt="Capa Música IV">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música IV</h5><p>The Venomous Sacrament</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/05 - The Zenith of Light.jpeg" class="d-block w-100" alt="Capa Música V">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música V</h5><p>The Zenith of Light</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/06 - The Weight of the Void.jpeg" class="d-block w-100" alt="Capa Música VI">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música VI</h5><p>The Weight of the Void</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/07 - The Architect of Agony (Labéu’s Duel).jpeg" class="d-block w-100" alt="Capa Música VII">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música VII</h5><p>The Architect of Agony (Labéu’s Duel)</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/08 - The Beast King’s Downfall.jpeg" class="d-block w-100" alt="Capa Música VIII">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música VIII</h5><p>The Beast King’s Downfall</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/09 - The Great Betrayal (The Hollow Victory).jpeg" class="d-block w-100" alt="Capa Música IX">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música IX</h5><p>The Great Betrayal (The Hollow Victory)</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img src="recursos/10 - The New Monarch (The Cycle of the Brand).jpeg" class="d-block w-100" alt="Capa Música X">
+                        <div class="carousel-caption-overlay">
+                          <h5>Música X</h5><p>The New Monarch (The Cycle of the Brand)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button class="vertical-control top-control" type="button" data-bs-target="#songsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" style="transform: rotate(90deg);"></span>
+                    </button>
+                    <button class="vertical-control bottom-control" type="button" data-bs-target="#songsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true" style="transform: rotate(90deg);"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="meuPlayer" src="recursos/01 - The Awakening of Fire.mp3"></audio>
+
+    <div id="customPlayer">
+        <button id="prevBtn" class="control-btn side-btn">⏮</button>
+        <button id="playPauseBtn" class="control-btn">▶</button>
+        <button id="nextBtn" class="control-btn side-btn">⏭</button>
+        
+        <span id="currentTime" class="time-text">0:00</span>
+        <input type="range" id="timeline" value="0" min="0" step="1">
+        <span id="durationTime" class="time-text">0:00</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const tracks = [
+            "recursos/01 - The Awakening of Fire.mp3",
+            "recursos/02 - The Glacial Requiem.mp3",
+            "recursos/03 - The Lightning Cathedral.mp3",
+            "recursos/04 - The Venomous Sacrament.mp3",
+            "recursos/05 - The Zenith of Light.mp3",
+            "recursos/06 - The Weight of the Void.mp3",
+            "recursos/07 - The Architect of Agony (Labéu’s Duel).mp3",
+            "recursos/08 - The Beast King’s Downfall.mp3",
+            "recursos/09 - The Great Betrayal (The Hollow Victory).mp3",
+            "recursos/10 - The New Monarch (The Cycle of the Brand).mp3"
+        ];
+
+        const bgLayer = document.getElementById('bgLayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const playerAudio = document.getElementById('meuPlayer'); 
+        const timeline = document.getElementById('timeline');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationTimeEl = document.getElementById('durationTime');
+
+        const myCarousel = document.getElementById('songsCarousel');
+        const carouselInstance = new bootstrap.Carousel(myCarousel, {
+            interval: false, 
+            wrap: true      
+        });
+        
+        // Quando o slide COMEÇA a mudar, troca a música no player
+        myCarousel.addEventListener('slide.bs.carousel', function (e) {
+            const isPlaying = !playerAudio.paused; 
+            playerAudio.src = tracks[e.to];
+            
+            if (isPlaying) {
+                playerAudio.play();
+                playPauseBtn.textContent = '⏸';
+            }
+        });
+
+        // --- MUDANÇA AQUI: Apaguei o evento 'slid.bs.carousel' que forçava o fundo a trocar de imagem ---
+
+        playerAudio.addEventListener('ended', function() {
+            carouselInstance.next();
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return min + ":" + (sec < 10 ? "0" + sec : sec);
+        }
+
+        playerAudio.addEventListener('loadedmetadata', function() {
+            timeline.max = playerAudio.duration;
+            durationTimeEl.textContent = formatTime(playerAudio.duration);
+        });
+
+        playPauseBtn.addEventListener('click', function() {
+            if (playerAudio.paused) {
+                playerAudio.play(); 
+                bgLayer.classList.add('player-inactive'); 
+                playPauseBtn.textContent = '⏸'; 
+            } else {
+                playerAudio.pause(); 
+                bgLayer.classList.remove('player-inactive'); 
+                playPauseBtn.textContent = '▶'; 
+            }
+        });
+
+        prevBtn.addEventListener('click', () => carouselInstance.prev());
+        nextBtn.addEventListener('click', () => carouselInstance.next());
+
+        playerAudio.addEventListener('timeupdate', function() {
+            timeline.value = playerAudio.currentTime;
+            currentTimeEl.textContent = formatTime(playerAudio.currentTime);
+        });
+
+        timeline.addEventListener('input', function() {
+            playerAudio.currentTime = timeline.value;
+        });
+    </script>
+</body>
+</html>
