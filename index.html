@@ -372,7 +372,7 @@
         <span id="durationTime" class="time-text">0:00</span>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bundle.min.js"></script>
 
     <script>
         const tracks = [
@@ -402,21 +402,29 @@
             interval: false, 
             wrap: true      
         });
+
+        // SOLUÇÃO: Variável de controle (Flag) para autoplay
+        window.g_playNextTrackOnSlide = false; 
         
         // Quando o slide COMEÇA a mudar, troca a música no player
         myCarousel.addEventListener('slide.bs.carousel', function (e) {
-            const isPlaying = !playerAudio.paused; 
+            // SOLUÇÃO: Armazena e reseta a flag IMEDIATAMENTE
+            const shouldForcePlay = window.g_playNextTrackOnSlide;
+            window.g_playNextTrackOnSlide = false; 
+
+            const manualIsPlaying = !playerAudio.paused; 
             playerAudio.src = tracks[e.to];
             
-            if (isPlaying) {
+            // SOLUÇÃO: Condição de reprodução atualizada
+            if (manualIsPlaying || shouldForcePlay) {
                 playerAudio.play();
                 playPauseBtn.textContent = '⏸';
             }
         });
 
-        // --- MUDANÇA AQUI: Apaguei o evento 'slid.bs.carousel' que forçava o fundo a trocar de imagem ---
-
         playerAudio.addEventListener('ended', function() {
+            // SOLUÇÃO: Avisa que a próxima mudança de slide deve tocar a música
+            window.g_playNextTrackOnSlide = true; 
             carouselInstance.next();
         });
 
