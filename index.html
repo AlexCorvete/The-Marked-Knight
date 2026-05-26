@@ -52,7 +52,7 @@
             width: 100%; height: 100%;
             z-index: 0;
             filter: blur(0px) brightness(100%); 
-            transition: filter 0.5s ease;
+            transition: filter 0.8s ease; /* Transição um pouco mais lenta para ficar cinematográfico */
         }
 
         .player-inactive {
@@ -65,8 +65,23 @@
             z-index: 1;
         }
 
-        .text-block h1 {
+        /* --- CONTÊINER DINÂMICO ESQUERDO --- */
+        #leftPanel {
+            position: relative;
+            min-height: 400px; /* Para garantir espaço na transição */
+        }
+
+        /* Título Principal (Visível no Pause) */
+        .text-block {
             color: white;
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+            width: 100%;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .text-block h1 {
             font-size: 3.5rem; 
             font-weight: 300; 
             margin-bottom: 0.5rem;
@@ -77,6 +92,75 @@
             font-size: 1.25rem;
             margin-bottom: 0;
         }
+
+        /* Monólito Rúnico de Letras (Visível no Play) */
+        .runic-monolith {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            width: 90%;
+            max-width: 550px;
+            max-height: 70vh;
+            background: rgba(15, 15, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            
+            /* Estado Inicial: Oculto */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+        }
+
+        /* Classes ativadas pelo JS quando o player toca */
+        .is-playing .text-block {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+        }
+        .is-playing .runic-monolith {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .runic-monolith h3 {
+            color: #e0d0b0; /* Tom dourado/pergaminho */
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .lyrics-text {
+            color: #d0d0d0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            overflow-y: auto;
+            white-space: pre-line;
+            padding-right: 15px;
+            font-family: sans-serif;
+        }
+
+        /* Scrollbar customizada para o Monólito */
+        .lyrics-text::-webkit-scrollbar { width: 6px; }
+        .lyrics-text::-webkit-scrollbar-track { background: transparent; }
+        .lyrics-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .lyrics-text::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
 
         @media (max-width: 767px) {
             .page-content {
@@ -89,9 +173,9 @@
                 text-align: center;
                 margin-bottom: 2rem;
             }
-            .text-block h1 {
-                font-size: 2.5rem; 
-            }
+            .text-block h1 { font-size: 2.5rem; }
+            #leftPanel { min-height: 300px; }
+            .runic-monolith { padding: 20px; }
         }
 
         #songsCarousel {
@@ -107,29 +191,18 @@
         }
 
         @media (max-width: 767px) {
-            #songsCarousel {
-                width: 90%; 
-            }
+            #songsCarousel { width: 90%; }
         }
 
         /* --- CSS DO CARROSSEL VERTICAL --- */
-        .carousel-item {
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
-        }
+        .carousel-item { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         .carousel-item-next:not(.carousel-item-start),
-        .active.carousel-item-end {
-            transform: translateY(100%) translateX(0) !important;
-        }
+        .active.carousel-item-end { transform: translateY(100%) translateX(0) !important; }
         .carousel-item-prev:not(.carousel-item-end),
-        .active.carousel-item-start {
-            transform: translateY(-100%) translateX(0) !important;
-        }
+        .active.carousel-item-start { transform: translateY(-100%) translateX(0) !important; }
         .active,
         .carousel-item-next.carousel-item-start,
-        .carousel-item-prev.carousel-item-end {
-            transform: translateY(0) translateX(0) !important;
-        }
-        /* --------------------------------- */
+        .carousel-item-prev.carousel-item-end { transform: translateY(0) translateX(0) !important; }
 
         .carousel-item img {
             object-fit: cover;
@@ -146,125 +219,42 @@
             color: white;
             text-align: left; 
         }
-        .carousel-caption-overlay h5 {
-            margin: 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        .carousel-caption-overlay p {
-            margin: 0;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.7);
-        }
+        .carousel-caption-overlay h5 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+        .carousel-caption-overlay p { margin: 0; font-size: 1rem; color: rgba(255,255,255,0.7); }
 
-        /* Controles invisíveis do carrossel */
         .vertical-control {
-            width: 100%;
-            height: 50%;
-            position: absolute;
-            left: 0;
-            opacity: 0; 
-            transition: opacity 0.3s;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            border: none;
+            width: 100%; height: 50%; position: absolute; left: 0; opacity: 0; 
+            transition: opacity 0.3s; z-index: 5; display: flex; justify-content: center; border: none;
         }
-        .vertical-control:hover {
-            opacity: 0.8; 
-        }
-        .top-control {
-            top: 0;
-            align-items: flex-start;
-            padding-top: 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-        }
-        .bottom-control {
-            bottom: 0;
-            align-items: flex-end;
-            padding-bottom: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-        }
+        .vertical-control:hover { opacity: 0.8; }
+        .top-control { top: 0; align-items: flex-start; padding-top: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); }
+        .bottom-control { bottom: 0; align-items: flex-end; padding-bottom: 20px; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
 
         /* --- ESTILOS DO PLAYER ATUALIZADO --- */
         #customPlayer {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 650px;
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            padding: 10px 20px;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 650px;
+            background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px; padding: 10px 20px; z-index: 10; display: flex; align-items: center; gap: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 767px) {
-            #customPlayer {
-                bottom: 20px;
-                padding: 10px 15px;
-                gap: 6px;
-            }
-            .time-text {
-                font-size: 0.75rem;
-                min-width: 30px;
-            }
+            #customPlayer { bottom: 20px; padding: 10px 15px; gap: 6px; }
+            .time-text { font-size: 0.75rem; min-width: 30px; }
         }
 
         .control-btn {
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            background: white;
-            color: black;
-            cursor: pointer;
-            transition: transform 0.2s;
-            flex-shrink: 0; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none;
+            background: white; color: black; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; 
         }
-        .control-btn:hover {
-            transform: scale(1.1);
-        }
-
+        .control-btn:hover { transform: scale(1.1); }
         #playPauseBtn { width: 45px; height: 45px; font-size: 1.3rem; }
         .side-btn { width: 35px; height: 35px; font-size: 0.9rem; }
+        .time-text { color: rgba(255, 255, 255, 0.8); font-family: sans-serif; font-size: 0.85rem; min-width: 40px; text-align: center; }
 
-        .time-text {
-            color: rgba(255, 255, 255, 0.8);
-            font-family: sans-serif;
-            font-size: 0.85rem;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-            cursor: pointer;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 12px;
-            width: 12px;
-            border-radius: 50%;
-            background: white;
-            margin-top: -4px; 
-        }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.3); border-radius: 2px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: white; margin-top: -4px; }
     </style>
 </head>
 <body>
@@ -274,16 +264,23 @@
     <div class="page-content container-fluid h-100">
         <div class="row h-100 align-items-center">
             
-            <div class="col-md-7 col-12 d-flex justify-content-center">
-                <div class="text-block px-md-5 px-3">
+            <div id="leftPanel" class="col-md-7 col-12 d-flex justify-content-center flex-column align-items-center">
+                
+                <div class="text-block px-md-5 px-3 text-md-start text-center">
                     <h1>THE MARKED KNIGHT</h1> <p>Symphony of Six Blades</p>
                 </div>
+
+                <div class="runic-monolith">
+                    <h3 id="lyricsTitle">01 - The Awakening of Fire</h3>
+                    <div class="divider"></div>
+                    <div id="lyricsContent" class="lyrics-text">
+                        </div>
+                </div>
+
             </div>
 
             <div class="col-md-5 col-12 d-flex justify-content-center">
-                
                 <div id="songsCarousel" class="carousel slide" data-bs-interval="false">
-                    
                     <div class="carousel-inner">
                       <div class="carousel-item active">
                         <img src="recursos/01 - The Awakening of Fire.png" class="d-block w-100" alt="Capa Música I">
@@ -386,7 +383,209 @@
             "recursos/10 - The New Monarch (The Cycle of the Brand).mp3"
         ];
 
+        const trackNames = [
+            "01 - The Awakening of Fire",
+            "02 - The Glacial Requiem",
+            "03 - The Lightning Cathedral",
+            "04 - The Venomous Sacrament",
+            "05 - The Zenith of Light",
+            "06 - The Weight of the Void",
+            "07 - The Architect of Agony",
+            "08 - The Beast King’s Downfall",
+            "09 - The Great Betrayal",
+            "10 - The New Monarch"
+        ];
+
+        // Letras Puras em Inglês
+        const lyricsData = [
+            `[Verse 1]
+            The iron snapped against the titan’s hide,
+            A broken soldier knelt upon the clay,
+            With nowhere left for a tired man to hide,
+            As shadows gathered to claim their easy prey.
+
+            [Verse 2]
+            The silence screamed across the dying field,
+            Where rusted armor met the jagged stone,
+            The fate of kings was finally revealed,
+            Leaving the warrior broken and alone.
+
+            [Pre-Chorus]
+            The flesh ignites in a searing flare,
+            A heat the world has never known!
+
+            [Chorus]
+            Oh, Knight of the Brand, rise from the dust!
+            With the Sword of Fire in your grip!
+            In ancient steel, we place our trust,
+            As the mortal world begins to slip!
+
+            [Verse 3]
+            But then a fever burned beneath his skin,
+            The right arm glowed with veins of molten gold,
+            A scream of power rose from deep within,
+            A secret story waiting to unfold.
+
+            [Verse 4]
+            The mystic pulse begins to override,
+            A spectral forge is screaming in his veins,
+            With nowhere left for ancient gods to hide,
+            He breaks the rhythm of his mortal chains!
+
+            [Pre-Chorus]
+            The flesh ignites in a searing flare,
+            A heat the world has never known!
+
+            [Chorus]
+            Oh, Knight of the Brand, rise from the dust!
+            With the Sword of Fire in your grip!
+            In ancient steel, we place our trust,
+            As the mortal world begins to slip!
+            `, // 01
+                        
+            `[Verse 1]
+            Through mountain peaks where frozen spirits cry,
+            He marched beneath a sky of hollow gray,
+            The Frost-Giants emerged to watch him die,
+            And block the icy hazards in his way.
+
+            [Verse 2]
+            He reached into the air and caught the wind,
+            His fingers turning white as winter bone,
+            The atmosphere itself was thinned,
+            By a coldness he could finally call his own.
+
+            [Pre-Chorus]
+            The mist hardens into a jagged spine,
+            The pulse of the blizzard starts to beat!
+
+            [Chorus]
+            Wield the Ice Blade, sharp and divine!
+            Freeze the blood of the monsters you meet!
+            A frozen star in a lonely shrine,
+            Turning the tundra into their defeat!
+
+            [Verse 3]
+            The path is treacherous and paved with glass,
+            Where ancient hunters wait to claim their prize,
+            No mortal man was ever meant to pass,
+            The frost is blooming deep within his eyes,
+            And every breath he takes is filled with lies.
+
+            [Verse 4]
+            His armored boots are cracking through the floe,
+            A silver light is leaking from his palm,
+            The monsters tremble as the temperatures go low,
+            He stands within the center of the storm so calm,
+            Singing a frozen, dark and hollow psalm.
+
+            [Pre-Chorus]
+            The mist hardens into a jagged spine,
+            The pulse of the blizzard starts to beat!
+
+            [Chorus]
+            Wield the Ice Blade, sharp and divine!
+            Freeze the blood of the monsters you meet!
+            A frozen star in a lonely shrine,
+            Turning the tundra into their defeat!`, // 02
+            `[Verse 1]
+            The sky turned black above the marble halls,
+            Where lightning-serpents danced among the rain,
+            The Knight climbed up the crumbling outer walls,
+            Ignoring every bruise and every pain.
+
+            [Verse 2]
+            The traps of wire and pressure-plates of old,
+            Could not compare to the static in his hand,
+            A jagged spark, a story to be told,
+            Of a thunderclap that echoed through the land.
+
+            [Pre-Chorus]
+            The scent of ozone fills the heavy air,
+            The clouds descend to touch the hilt!
+
+            [Chorus]
+            Sword of Lightning, a blinding glare!
+            Destroying the kingdoms that sin has built!
+            A strike so fast they can only stare,
+            As the blood of the wicked is finally spilt!
+
+            [Verse 3]
+            Voltage is surging through his metal veins,
+            A blue-white fire blooming in his chest,
+            He shatters all the iron-wrought remains,
+            And puts the ancient architects to rest.
+
+            [Verse 4]
+            The gargoyles crumble into dust and sand,
+            As high-frequency blades begin to roar,
+            He holds the power of the storm in hand,
+            And kicks down every heavy temple door!
+
+            [Pre-Chorus]
+            The scent of ozone fills the heavy air,
+            The clouds descend to touch the hilt!
+
+            [Chorus]
+            Sword of Lightning, a blinding glare!
+            Destroying the kingdoms that sin has built!
+            A strike so fast they can only stare,
+            As the blood of the wicked is finally spilt!`, // 03
+            `[Verse 1]
+            In swamps where toxic vapors slowly creep,
+            And serpents wait beneath the emerald scum,
+            The Knight waded through waters dark and deep,
+            Beating the rhythm of a funeral drum.
+
+            [Verse 2]
+            Mechanical traps with poisoned iron darts,
+            Sprang from the trees to pierce his weary chest,
+            But he had venom in his hidden parts,
+            To put the jungle’s cruelty to the test.
+
+            [Pre-Chorus]
+            A sickly green begins to drip and flow,
+            From the palm that carries the blight!
+
+            [Chorus]
+            Lazarus Blade, let the poison grow,
+            In the heart of the swamp and the night!
+            The monsters wither from a single blow,
+            As they choke on the Knight’s toxic might!
+
+            [Verse 3]
+            The roots are reaching for his silver greaves,
+            A thousand eyes are watching from the mud,
+            He cuts through rot and all the dying leaves,
+            While ancient ichor mixes with his blood,
+            He stands a god amidst the rising flood.
+
+            [Verse 4]
+            The air is thick with every breath he steals,
+            His arm is burning with a corrosive grace,
+            The ground beneath his heavy armor reels,
+            As he unveils the horror of his face,
+            To erase the darkness of this hollow place.
+
+            [Pre-Chorus]
+            A sickly green begins to drip and flow,
+            From the palm that carries the blight!
+
+            [Chorus]
+            Lazarus Blade, let the poison grow,
+            In the heart of the swamp and the night!
+            The monsters wither from a single blow,
+            As they choke on the Knight’s toxic might!`, // 04
+            `Lyrics for The Zenith of Light...`, // 05
+            `Lyrics for The Weight of the Void...`, // 06
+            `Lyrics for The Architect of Agony...`, // 07
+            `Lyrics for The Beast King’s Downfall...`, // 08
+            `Lyrics for The Great Betrayal...`, // 09
+            `Lyrics for The New Monarch...`  // 10
+        ];
+
         const bgLayer = document.getElementById('bgLayer');
+        const leftPanel = document.getElementById('leftPanel'); // Contêiner das letras/título
         const playPauseBtn = document.getElementById('playPauseBtn');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -394,6 +593,12 @@
         const timeline = document.getElementById('timeline');
         const currentTimeEl = document.getElementById('currentTime');
         const durationTimeEl = document.getElementById('durationTime');
+        const lyricsTitle = document.getElementById('lyricsTitle');
+        const lyricsContent = document.getElementById('lyricsContent');
+
+        // Inicializa a primeira letra
+        lyricsTitle.textContent = trackNames[0];
+        lyricsContent.textContent = lyricsData[0];
 
         const myCarousel = document.getElementById('songsCarousel');
         const carouselInstance = new bootstrap.Carousel(myCarousel, {
@@ -401,38 +606,39 @@
             wrap: true      
         });
 
-        // Flag para controle de autoplay quando a música termina
         window.g_playNextTrackOnSlide = false; 
         
-        // Quando o slide COMEÇA a mudar, troca a música no player
         myCarousel.addEventListener('slide.bs.carousel', function (e) {
             const shouldForcePlay = window.g_playNextTrackOnSlide;
             window.g_playNextTrackOnSlide = false; 
 
+            // Atualiza dados rúnicos do painel
+            lyricsTitle.textContent = trackNames[e.to];
+            lyricsContent.textContent = lyricsData[e.to];
+
             const manualIsPlaying = !playerAudio.paused; 
             playerAudio.src = tracks[e.to];
             
-            // Tratamento de promessa para evitar erros no console caso o navegador bloqueie o autoplay
             if (manualIsPlaying || shouldForcePlay) {
                 let playPromise = playerAudio.play();
                 if (playPromise !== undefined) {
                     playPromise.then(_ => {
                         playPauseBtn.textContent = '⏸';
                     }).catch(error => {
-                        console.log("Autoplay evitado pelo navegador. Aguardando interação do usuário.");
                         playPauseBtn.textContent = '▶';
+                        // Se o autoplay falhar, força o retorno para o título principal
+                        bgLayer.classList.remove('player-inactive');
+                        leftPanel.classList.remove('is-playing');
                     });
                 }
             }
         });
 
-        // Quando a música acaba, avança o slide e ativa a flag para dar play automático
         playerAudio.addEventListener('ended', function() {
             window.g_playNextTrackOnSlide = true; 
             carouselInstance.next();
         });
 
-        // Formatação de tempo (segundos para MM:SS)
         function formatTime(seconds) {
             if (isNaN(seconds)) return "0:00";
             const min = Math.floor(seconds / 60);
@@ -440,36 +646,33 @@
             return min + ":" + (sec < 10 ? "0" + sec : sec);
         }
 
-        // Atualiza a duração total quando a música carrega
         playerAudio.addEventListener('loadedmetadata', function() {
             timeline.max = playerAudio.duration;
             durationTimeEl.textContent = formatTime(playerAudio.duration);
         });
 
-        // Ação do botão Play/Pause
         playPauseBtn.addEventListener('click', function() {
             if (playerAudio.paused) {
                 playerAudio.play(); 
                 bgLayer.classList.add('player-inactive'); 
+                leftPanel.classList.add('is-playing'); // Oculta o título, mostra o monólito
                 playPauseBtn.textContent = '⏸'; 
             } else {
                 playerAudio.pause(); 
                 bgLayer.classList.remove('player-inactive'); 
+                leftPanel.classList.remove('is-playing'); // Mostra o título, oculta o monólito
                 playPauseBtn.textContent = '▶'; 
             }
         });
 
-        // Controles de avançar e retroceder
         prevBtn.addEventListener('click', () => carouselInstance.prev());
         nextBtn.addEventListener('click', () => carouselInstance.next());
 
-        // Atualiza a barra de progresso (timeline) conforme a música toca
         playerAudio.addEventListener('timeupdate', function() {
             timeline.value = playerAudio.currentTime;
             currentTimeEl.textContent = formatTime(playerAudio.currentTime);
         });
 
-        // Permite clicar na barra de progresso para pular para uma parte específica da música
         timeline.addEventListener('input', function() {
             playerAudio.currentTime = timeline.value;
         });
