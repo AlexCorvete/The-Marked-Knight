@@ -52,7 +52,7 @@
             width: 100%; height: 100%;
             z-index: 0;
             filter: blur(0px) brightness(100%); 
-            transition: filter 0.8s ease; /* Transição um pouco mais lenta para ficar cinematográfico */
+            transition: filter 0.8s ease;
         }
 
         .player-inactive {
@@ -65,13 +65,11 @@
             z-index: 1;
         }
 
-        /* --- CONTÊINER DINÂMICO ESQUERDO --- */
         #leftPanel {
             position: relative;
-            min-height: 400px; /* Para garantir espaço na transição */
+            min-height: 400px;
         }
 
-        /* Título Principal (Visível no Pause) */
         .text-block {
             color: white;
             transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
@@ -93,7 +91,6 @@
             margin-bottom: 0;
         }
 
-        /* Monólito Rúnico de Letras (Visível no Play) */
         .runic-monolith {
             position: absolute;
             top: 50%;
@@ -110,14 +107,11 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-            
-            /* Estado Inicial: Oculto */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
         }
 
-        /* Classes ativadas pelo JS quando o player toca */
         .is-playing .text-block {
             opacity: 0;
             visibility: hidden;
@@ -130,7 +124,7 @@
         }
 
         .runic-monolith h3 {
-            color: #e0d0b0; /* Tom dourado/pergaminho */
+            color: #e0d0b0; 
             font-size: 1.3rem;
             margin-bottom: 15px;
             font-weight: 400;
@@ -156,7 +150,6 @@
             font-family: sans-serif;
         }
 
-        /* Scrollbar customizada para o Monólito */
         .lyrics-text::-webkit-scrollbar { width: 6px; }
         .lyrics-text::-webkit-scrollbar-track { background: transparent; }
         .lyrics-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
@@ -194,7 +187,6 @@
             #songsCarousel { width: 90%; }
         }
 
-        /* --- CSS DO CARROSSEL VERTICAL --- */
         .carousel-item { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
         .carousel-item-next:not(.carousel-item-start),
         .active.carousel-item-end { transform: translateY(100%) translateX(0) !important; }
@@ -230,7 +222,6 @@
         .top-control { top: 0; align-items: flex-start; padding-top: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); }
         .bottom-control { bottom: 0; align-items: flex-end; padding-bottom: 20px; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
 
-        /* --- ESTILOS DO PLAYER ATUALIZADO --- */
         #customPlayer {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 650px;
             background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);
@@ -355,7 +346,8 @@
         </div>
     </div>
 
-    <audio id="meuPlayer" src="recursos/01 - The Awakening of Fire.mp3"></audio>
+    <!-- UPDATE 1: Fonte de áudio inicial atualizada para _mastered.wav -->
+    <audio id="meuPlayer" src="recursos/01 - The Awakening of Fire_mastered.wav"></audio>
 
     <div id="customPlayer">
         <button id="prevBtn" class="control-btn side-btn">⏮</button>
@@ -370,17 +362,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // UPDATE 2: Todas as faixas apontando para a versão masterizada em .wav
         const tracks = [
-            "recursos/01 - The Awakening of Fire.mp3",
-            "recursos/02 - The Glacial Requiem.mp3",
-            "recursos/03 - The Lightning Cathedral.mp3",
-            "recursos/04 - The Venomous Sacrament.mp3",
-            "recursos/05 - The Zenith of Light.mp3",
-            "recursos/06 - The Weight of the Void.mp3",
-            "recursos/07 - The Architect of Agony (Labéu’s Duel).mp3",
-            "recursos/08 - The Beast King’s Downfall.mp3",
-            "recursos/09 - The Great Betrayal (The Hollow Victory).mp3",
-            "recursos/10 - The New Monarch (The Cycle of the Brand).mp3"
+            "recursos/01 - The Awakening of Fire_mastered.wav",
+            "recursos/02 - The Glacial Requiem_mastered.wav",
+            "recursos/03 - The Lightning Cathedral_mastered.wav",
+            "recursos/04 - The Venomous Sacrament_mastered.wav",
+            "recursos/05 - The Zenith of Light_mastered.wav",
+            "recursos/06 - The Weight of the Void_mastered.wav",
+            "recursos/07 - The Architect of Agony (Labéu’s Duel)_mastered.wav",
+            "recursos/08 - The Beast King’s Downfall_mastered.wav",
+            "recursos/09 - The Great Betrayal (The Hollow Victory)_mastered.wav",
+            "recursos/10 - The New Monarch (The Cycle of the Brand)_mastered.wav"
         ];
 
         const trackNames = [
@@ -901,7 +894,7 @@
         ];
 
         const bgLayer = document.getElementById('bgLayer');
-        const leftPanel = document.getElementById('leftPanel'); // Contêiner das letras/título
+        const leftPanel = document.getElementById('leftPanel'); 
         const playPauseBtn = document.getElementById('playPauseBtn');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -912,7 +905,6 @@
         const lyricsTitle = document.getElementById('lyricsTitle');
         const lyricsContent = document.getElementById('lyricsContent');
 
-        // Inicializa a primeira letra
         lyricsTitle.textContent = trackNames[0];
         lyricsContent.textContent = lyricsData[0];
 
@@ -928,7 +920,6 @@
             const shouldForcePlay = window.g_playNextTrackOnSlide;
             window.g_playNextTrackOnSlide = false; 
 
-            // Atualiza dados rúnicos do painel
             lyricsTitle.textContent = trackNames[e.to];
             lyricsContent.textContent = lyricsData[e.to];
 
@@ -942,7 +933,6 @@
                         playPauseBtn.textContent = '⏸';
                     }).catch(error => {
                         playPauseBtn.textContent = '▶';
-                        // Se o autoplay falhar, força o retorno para o título principal
                         bgLayer.classList.remove('player-inactive');
                         leftPanel.classList.remove('is-playing');
                     });
@@ -971,12 +961,12 @@
             if (playerAudio.paused) {
                 playerAudio.play(); 
                 bgLayer.classList.add('player-inactive'); 
-                leftPanel.classList.add('is-playing'); // Oculta o título, mostra o monólito
+                leftPanel.classList.add('is-playing'); 
                 playPauseBtn.textContent = '⏸'; 
             } else {
                 playerAudio.pause(); 
                 bgLayer.classList.remove('player-inactive'); 
-                leftPanel.classList.remove('is-playing'); // Mostra o título, oculta o monólito
+                leftPanel.classList.remove('is-playing'); 
                 playPauseBtn.textContent = '▶'; 
             }
         });
