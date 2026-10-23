@@ -2,367 +2,696 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>THE MARKED KNIGHT - A Symphony of Six Blades</title>
     
     <meta name="description" content="Ouça THE MARKED KNIGHT: A Symphony of Six Blades. Uma ópera rock épica e imersiva sobre a jornada do Cavaleiro Marcado através do labirinto.">
     <meta name="keywords" content="The Marked Knight, ópera rock, symphony of six blades, música épica, metal sinfônico, álbum conceitual, fantasy music">
-    <meta name="author" content="SEU NOME AQUI">
     <meta name="robots" content="index, follow">
 
-    <meta property="og:title" content="THE MARKED KNIGHT - Oficial">
-    <meta property="og:description" content="A Symphony of Six Blades. Explore a ópera rock épica do Cavaleiro Marcado.">
-    <meta property="og:image" content="recursos/01 - The Awakening of Fire.jpeg"> 
-    <meta property="og:url" content="https://www.URL_DO_SEU_SITE.com.br">
-    <meta property="og:type" content="website">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body, html {
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
             background-color: #000; 
             font-family: 'Georgia', serif; 
-            background-attachment: fixed;
-        }
-
-        @media (min-width: 768px) {
-            body, html {
-                height: 100%;
-                overflow: hidden; 
-            }
-        }
-
-        @media (max-width: 767px) {
-            body, html {
-                min-height: 100vh;
-                overflow-x: hidden;
-                overflow-y: auto;
-            }
-        }
-
-        .bg-blur {
-            background-image: url('recursos/CapaDiscoCavaleiroDasEspadasAmaldicoadas\ \(2\).png'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            filter: blur(0px) brightness(100%); 
-            transition: filter 0.8s ease;
-        }
-
-        .player-inactive {
-            filter: blur(15px) brightness(40%) !important;
-        }
-
-        .page-content {
-            height: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        #leftPanel {
-            position: relative;
-            min-height: 400px;
-        }
-
-        .text-block {
-            color: white;
-            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
-            width: 100%;
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .text-block h1 {
-            font-size: 3.5rem; 
-            font-weight: 300; 
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        .text-block p {
-            color: rgba(255,255,255,0.8);
-            font-size: 1.25rem;
-            margin-bottom: 0;
-        }
-
-        .runic-monolith {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.95);
-            width: 90%;
-            max-width: 550px;
-            max-height: 70vh;
-            background: rgba(15, 15, 20, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
-        }
-
-        .is-playing .text-block {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-20px);
-        }
-        .is-playing .runic-monolith {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .runic-monolith h3 {
-            color: #e0d0b0; 
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-
-        .lyrics-text {
-            color: #d0d0d0;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            overflow-y: auto;
-            white-space: pre-line;
-            padding-right: 15px;
-            font-family: sans-serif;
-        }
-
-        .lyrics-text::-webkit-scrollbar { width: 6px; }
-        .lyrics-text::-webkit-scrollbar-track { background: transparent; }
-        .lyrics-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        .lyrics-text::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
-
-        @media (max-width: 767px) {
-            .page-content {
-                height: auto;
-                min-height: 100vh;
-                padding-top: 3rem;
-                padding-bottom: 140px; 
-            }
-            .text-block {
-                text-align: center;
-                margin-bottom: 2rem;
-            }
-            .text-block h1 { font-size: 2.5rem; }
-            #leftPanel { min-height: 300px; }
-            .runic-monolith { padding: 20px; }
-        }
-
-        #songsCarousel {
-            aspect-ratio: 1/1; 
-            border-radius: 20px; 
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
-            background-color: #111; 
-            width: 100%;
-            max-width: 500px; 
-            margin: 0 auto;
-            position: relative;
         }
 
-        @media (max-width: 767px) {
-            #songsCarousel { width: 90%; }
+        /* =========================================================
+           1. ESTILOS EXCLUSIVOS DO COMPUTADOR (DESKTOP > 768px)
+           ========================================================= */
+        @media (min-width: 769px) {
+            #mobile-root {
+                display: none !important;
+            }
+
+            .bg-blur {
+                background-image: url('recursos/CapaDiscoCavaleiroDasEspadasAmaldicoadas (2).png'); 
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                z-index: 0;
+                filter: blur(0px) brightness(100%); 
+                transition: filter 0.8s ease;
+            }
+
+            .player-inactive {
+                filter: blur(15px) brightness(40%) !important;
+            }
+
+            .page-content {
+                height: 100%;
+                position: relative;
+                z-index: 1;
+            }
+
+            #leftPanel {
+                position: relative;
+                min-height: 400px;
+            }
+
+            .text-block {
+                color: white;
+                transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            
+            .text-block h1 {
+                font-size: 3.5rem; 
+                font-weight: 300; 
+                margin-bottom: 0.5rem;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                font-family: 'Cinzel', serif;
+                letter-spacing: 2px;
+            }
+
+            .text-block p {
+                color: rgba(255,255,255,0.8);
+                font-size: 1.25rem;
+                margin-bottom: 0;
+                font-style: italic;
+            }
+
+            .runic-monolith {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.95);
+                width: 90%;
+                max-width: 550px;
+                max-height: 70vh;
+                background: rgba(15, 15, 20, 0.65);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 12px;
+                padding: 30px;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+            }
+
+            .is-playing .text-block {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+            }
+
+            .is-playing .runic-monolith {
+                opacity: 1;
+                visibility: visible;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .runic-monolith h3 {
+                color: #e0d0b0; 
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+                font-weight: 400;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+                font-family: 'Cinzel', serif;
+            }
+
+            .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(224, 208, 176, 0.4), transparent);
+                margin-bottom: 20px;
+                flex-shrink: 0;
+            }
+
+            .lyrics-text {
+                color: #d0d0d0;
+                font-size: 1.05rem;
+                line-height: 1.8;
+                overflow-y: auto;
+                white-space: pre-line;
+                padding-right: 15px;
+                font-family: sans-serif;
+            }
+
+            .lyrics-text::-webkit-scrollbar { width: 6px; }
+            .lyrics-text::-webkit-scrollbar-track { background: transparent; }
+            .lyrics-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+            .lyrics-text::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+
+            #songsCarousel {
+                aspect-ratio: 1/1; 
+                border-radius: 20px; 
+                overflow: hidden;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.85); 
+                background-color: #111; 
+                width: 100%;
+                max-width: 500px; 
+                margin: 0 auto;
+                position: relative;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+            }
+
+            .carousel-item { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
+            .carousel-item-next:not(.carousel-item-start),
+            .active.carousel-item-end { transform: translateY(100%) translateX(0) !important; }
+            .carousel-item-prev:not(.carousel-item-end),
+            .active.carousel-item-start { transform: translateY(-100%) translateX(0) !important; }
+            .active,
+            .carousel-item-next.carousel-item-start,
+            .carousel-item-prev.carousel-item-end { transform: translateY(0) translateX(0) !important; }
+
+            .carousel-item img {
+                object-fit: cover;
+                aspect-ratio: 1/1;
+            }
+
+            .carousel-caption-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+                color: white;
+                text-align: left; 
+            }
+            .carousel-caption-overlay h5 { margin: 0; font-size: 1.25rem; font-weight: 600; font-family: 'Cinzel', serif; }
+            .carousel-caption-overlay p { margin: 0; font-size: 1rem; color: rgba(255,255,255,0.7); }
+
+            .vertical-control {
+                width: 100%; height: 50%; position: absolute; left: 0; opacity: 0; 
+                transition: opacity 0.3s; z-index: 5; display: flex; justify-content: center; border: none;
+            }
+            .vertical-control:hover { opacity: 0.8; }
+            .top-control { top: 0; align-items: flex-start; padding-top: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); }
+            .bottom-control { bottom: 0; align-items: flex-end; padding-bottom: 20px; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
+
+            #customPlayer {
+                position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 650px;
+                background: rgba(20, 20, 20, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 50px; padding: 10px 20px; z-index: 10; display: flex; align-items: center; gap: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            }
+
+            .control-btn {
+                border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none;
+                background: white; color: black; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; 
+            }
+            .control-btn:hover { transform: scale(1.1); }
+            #playPauseBtn { width: 45px; height: 45px; font-size: 1.3rem; }
+            .side-btn { width: 35px; height: 35px; font-size: 0.9rem; }
+            .time-text { color: rgba(255, 255, 255, 0.8); font-family: sans-serif; font-size: 0.85rem; min-width: 40px; text-align: center; }
+
+            input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+            input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.3); border-radius: 2px; }
+            input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: white; margin-top: -4px; }
         }
 
-        .carousel-item { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; }
-        .carousel-item-next:not(.carousel-item-start),
-        .active.carousel-item-end { transform: translateY(100%) translateX(0) !important; }
-        .carousel-item-prev:not(.carousel-item-end),
-        .active.carousel-item-start { transform: translateY(-100%) translateX(0) !important; }
-        .active,
-        .carousel-item-next.carousel-item-start,
-        .carousel-item-prev.carousel-item-end { transform: translateY(0) translateX(0) !important; }
+        /* =========================================================
+           2. ESTILOS EXCLUSIVOS DO CELULAR (MOBILE <= 768px)
+           ========================================================= */
+        @media (max-width: 768px) {
+            #desktop-root {
+                display: none !important;
+            }
 
-        .carousel-item img {
-            object-fit: cover;
-            aspect-ratio: 1/1;
+            body {
+                user-select: none;
+            }
+
+            .mobile-bg-artwork {
+                position: absolute;
+                inset: -25px;
+                background-image: url('recursos/01 - The Awakening of Fire.png');
+                background-position: center;
+                background-size: cover;
+                filter: blur(30px) brightness(0.28);
+                transform: scale(1.12);
+                z-index: 1;
+                transition: background-image 0.6s ease;
+            }
+
+            .mobile-bg-vignette {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, rgba(10, 10, 14, 0.45) 0%, rgba(4, 4, 6, 0.9) 100%);
+                z-index: 2;
+            }
+
+            .mobile-shell {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 2.2rem 1.6rem 1.6rem;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .mobile-top-bar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: rgba(255, 255, 255, 0.65);
+                text-transform: uppercase;
+            }
+
+            .mobile-icon-btn {
+                background: none;
+                border: none;
+                color: #e0d0b0;
+                font-size: 1.3rem;
+                cursor: pointer;
+                padding: 6px;
+            }
+
+            .mobile-top-info {
+                text-align: center;
+            }
+
+            .mobile-top-info .tag {
+                font-size: 0.72rem;
+                letter-spacing: 2px;
+                color: #e0d0b0;
+                font-family: 'Cinzel', serif;
+            }
+
+            .mobile-top-info .album {
+                font-size: 0.92rem;
+                font-weight: 700;
+                color: #ffffff;
+                font-family: 'Cinzel', serif;
+                margin-top: 2px;
+                letter-spacing: 1px;
+            }
+
+            .mobile-cover-container {
+                width: 100%;
+                aspect-ratio: 1 / 1;
+                margin: auto 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-cover-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 18px;
+                border: 1px solid rgba(224, 208, 176, 0.35);
+                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(224, 208, 176, 0.15);
+                transition: opacity 0.3s ease;
+            }
+
+            .mobile-meta-container {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                margin-bottom: 1.2rem;
+            }
+
+            .mobile-song-title {
+                font-family: 'Cinzel', serif;
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #ffffff;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                letter-spacing: 0.5px;
+            }
+
+            .mobile-artist-name {
+                font-size: 0.9rem;
+                color: #e0d0b0;
+                font-style: italic;
+                font-family: 'Georgia', serif;
+                letter-spacing: 1px;
+            }
+
+            .mobile-progress-box {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin-bottom: 1.2rem;
+            }
+
+            .mobile-scrubber-track {
+                width: 100%;
+                height: 5px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 6px;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .mobile-scrubber-fill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(to right, #8c734b, #e0d0b0);
+                border-radius: 6px;
+                position: relative;
+            }
+
+            .mobile-scrubber-fill::after {
+                content: '';
+                position: absolute;
+                right: -5px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 12px;
+                height: 12px;
+                background: #ffffff;
+                border: 2px solid #e0d0b0;
+                border-radius: 50%;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+            }
+
+            .mobile-timestamps {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.75rem;
+                color: rgba(255, 255, 255, 0.65);
+            }
+
+            .mobile-controls {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 1rem;
+                margin-bottom: 1.6rem;
+            }
+
+            .mobile-btn {
+                background: none;
+                border: none;
+                color: #ffffff;
+                font-size: 1.4rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.15s ease;
+            }
+
+            .mobile-btn:active {
+                transform: scale(0.9);
+            }
+
+            .mobile-play-btn {
+                width: 64px;
+                height: 64px;
+                background: #ffffff;
+                color: #0b0c10;
+                border-radius: 50%;
+                font-size: 1.6rem;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            }
+
+            .mobile-footer-nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                border-top: 1px solid rgba(255, 255, 255, 0.12);
+                padding-top: 1rem;
+            }
+
+            .mobile-nav-item {
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.65);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                font-size: 0.72rem;
+                cursor: pointer;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .mobile-nav-item span.icon {
+                font-size: 1.25rem;
+            }
+
+            /* Bottom Sheet Drawer */
+            .sheet-drawer {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -100%;
+                height: 78%;
+                background: rgba(14, 15, 20, 0.96);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-top: 2px solid #e0d0b0;
+                border-radius: 22px 22px 0 0;
+                z-index: 50;
+                transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                display: flex;
+                flex-direction: column;
+                padding: 1.2rem 1.5rem 1.5rem;
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
+            }
+
+            .sheet-drawer.open {
+                bottom: 0;
+            }
+
+            .drawer-grabber {
+                width: 44px;
+                height: 5px;
+                background: rgba(255, 255, 255, 0.25);
+                border-radius: 4px;
+                margin: 0 auto 1rem;
+                cursor: pointer;
+            }
+
+            .drawer-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+                border-bottom: 1px solid rgba(224, 208, 176, 0.25);
+                padding-bottom: 0.6rem;
+            }
+
+            .drawer-header h3 {
+                font-family: 'Cinzel', serif;
+                color: #e0d0b0;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .drawer-close {
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 1.4rem;
+                cursor: pointer;
+            }
+
+            .drawer-body {
+                overflow-y: auto;
+                flex: 1;
+                padding-right: 4px;
+            }
+
+            .drawer-track-row {
+                padding: 12px 10px;
+                margin: 3px 0;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.88rem;
+                color: #fff;
+                transition: background 0.2s ease;
+            }
+
+            .drawer-track-row:hover { background: rgba(224, 208, 176, 0.12); }
+
+            .drawer-track-row.active {
+                background: rgba(224, 208, 176, 0.2);
+                color: #e0d0b0;
+                font-weight: 600;
+            }
+
+            .drawer-lyrics-content {
+                white-space: pre-line;
+                font-family: 'Georgia', serif;
+                font-size: 1.15rem;
+                font-style: italic;
+                line-height: 1.8;
+                color: #d8d8d8;
+                text-align: center;
+            }
         }
-
-        .carousel-caption-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-            color: white;
-            text-align: left; 
-        }
-        .carousel-caption-overlay h5 { margin: 0; font-size: 1.25rem; font-weight: 600; }
-        .carousel-caption-overlay p { margin: 0; font-size: 1rem; color: rgba(255,255,255,0.7); }
-
-        .vertical-control {
-            width: 100%; height: 50%; position: absolute; left: 0; opacity: 0; 
-            transition: opacity 0.3s; z-index: 5; display: flex; justify-content: center; border: none;
-        }
-        .vertical-control:hover { opacity: 0.8; }
-        .top-control { top: 0; align-items: flex-start; padding-top: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); }
-        .bottom-control { bottom: 0; align-items: flex-end; padding-bottom: 20px; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
-
-        #customPlayer {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 650px;
-            background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px; padding: 10px 20px; z-index: 10; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        @media (max-width: 767px) {
-            #customPlayer { bottom: 20px; padding: 10px 15px; gap: 6px; }
-            .time-text { font-size: 0.75rem; min-width: 30px; }
-        }
-
-        .control-btn {
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none;
-            background: white; color: black; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; 
-        }
-        .control-btn:hover { transform: scale(1.1); }
-        #playPauseBtn { width: 45px; height: 45px; font-size: 1.3rem; }
-        .side-btn { width: 35px; height: 35px; font-size: 0.9rem; }
-        .time-text { color: rgba(255, 255, 255, 0.8); font-family: sans-serif; font-size: 0.85rem; min-width: 40px; text-align: center; }
-
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.3); border-radius: 2px; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: white; margin-top: -4px; }
     </style>
 </head>
 <body>
 
-    <div class="bg-blur" id="bgLayer"></div>
+    <!-- ==========================================
+         A. ESTRUTURA PARA COMPUTADOR (DESKTOP)
+         ========================================== -->
+    <div id="desktop-root">
+        <div class="bg-blur" id="bgLayer"></div>
 
-    <div class="page-content container-fluid h-100">
-        <div class="row h-100 align-items-center">
-            
-            <div id="leftPanel" class="col-md-7 col-12 d-flex justify-content-center flex-column align-items-center">
+        <div class="page-content container-fluid h-100">
+            <div class="row h-100 align-items-center">
                 
-                <div class="text-block px-md-5 px-3 text-md-start text-center">
-                    <h1>THE MARKED KNIGHT</h1> <p>Symphony of Six Blades</p>
-                </div>
-
-                <div class="runic-monolith">
-                    <h3 id="lyricsTitle">01 - The Awakening of Fire</h3>
-                    <div class="divider"></div>
-                    <div id="lyricsContent" class="lyrics-text">
-                        </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-5 col-12 d-flex justify-content-center">
-                <div id="songsCarousel" class="carousel slide" data-bs-interval="false">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="recursos/01 - The Awakening of Fire.png" class="d-block w-100" alt="Capa Música I">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música I</h5><p>The Awakening of Fire</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/02 - The Glacial Requiem.png" class="d-block w-100" alt="Capa Música II">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música II</h5><p>The Glacial Requiem</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/03 - The Lightning Cathedral.png" class="d-block w-100" alt="Capa Música III">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música III</h5><p>The Lightning Cathedral</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/04 - The Venomous Sacrament.png" class="d-block w-100" alt="Capa Música IV">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música IV</h5><p>The Venomous Sacrament</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/05 - The Zenith of Light.png" class="d-block w-100" alt="Capa Música V">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música V</h5><p>The Zenith of Light</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/06 - The Weight of the Void.png" class="d-block w-100" alt="Capa Música VI">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música VI</h5><p>The Weight of the Void</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/07 - The Architect of Agony (Labéu’s Duel).png" class="d-block w-100" alt="Capa Música VII">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música VII</h5><p>The Architect of Agony (Labéu’s Duel)</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/08 - The Beast King’s Downfall.png" class="d-block w-100" alt="Capa Música VIII">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música VIII</h5><p>The Beast King’s Downfall</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/09 - The Great Betrayal (The Hollow Victory).png" class="d-block w-100" alt="Capa Música IX">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música IX</h5><p>The Great Betrayal (The Hollow Victory)</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="recursos/10 - The New Monarch (The Cycle of the Brand).png" class="d-block w-100" alt="Capa Música X">
-                        <div class="carousel-caption-overlay">
-                          <h5>Música X</h5><p>The New Monarch (The Cycle of the Brand)</p>
-                        </div>
-                      </div>
+                <div id="leftPanel" class="col-md-7 col-12 d-flex justify-content-center flex-column align-items-center">
+                    <div class="text-block px-md-5 px-3 text-md-start text-center">
+                        <h1>THE MARKED KNIGHT</h1> 
+                        <p>Symphony of Six Blades</p>
                     </div>
 
-                    <button class="vertical-control top-control" type="button" data-bs-target="#songsCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true" style="transform: rotate(90deg);"></span>
-                    </button>
-                    <button class="vertical-control bottom-control" type="button" data-bs-target="#songsCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true" style="transform: rotate(90deg);"></span>
-                    </button>
+                    <div class="runic-monolith">
+                        <h3 id="desktopLyricsTitle">01 - The Awakening of Fire</h3>
+                        <div class="divider"></div>
+                        <div id="desktopLyricsContent" class="lyrics-text"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-12 d-flex justify-content-center">
+                    <div id="songsCarousel" class="carousel slide" data-bs-interval="false">
+                        <div class="carousel-inner" id="carouselInner">
+                            <!-- Inserido dinamicamente via JS -->
+                        </div>
+
+                        <button class="vertical-control top-control" type="button" data-bs-target="#songsCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style="transform: rotate(90deg);"></span>
+                        </button>
+                        <button class="vertical-control bottom-control" type="button" data-bs-target="#songsCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="transform: rotate(90deg);"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="customPlayer">
+            <button id="desktopPrevBtn" class="control-btn side-btn">⏮</button>
+            <button id="desktopPlayPauseBtn" class="control-btn">▶</button>
+            <button id="desktopNextBtn" class="control-btn side-btn">⏭</button>
+            
+            <span id="desktopCurrentTime" class="time-text">0:00</span>
+            <input type="range" id="desktopTimeline" value="0" min="0" step="1">
+            <span id="desktopDurationTime" class="time-text">0:00</span>
+        </div>
     </div>
 
-    <!-- UPDATE 1: Fonte de áudio inicial atualizada para _mastered.wav -->
+
+    <!-- ==========================================
+         B. ESTRUTURA PARA CELULAR (MOBILE)
+         ========================================== -->
+    <div id="mobile-root">
+        <div class="mobile-bg-artwork" id="mobileBgArt"></div>
+        <div class="mobile-bg-vignette"></div>
+
+        <main class="mobile-shell">
+            <header class="mobile-top-bar">
+                <button class="mobile-icon-btn" onclick="openDrawer('tracks')">▼</button>
+                <div class="mobile-top-info">
+                    <div class="tag">ÓPERA ROCK</div>
+                    <div class="album">THE MARKED KNIGHT</div>
+                </div>
+                <button class="mobile-icon-btn" onclick="openDrawer('lyrics')">📜</button>
+            </header>
+
+            <section class="mobile-cover-container">
+                <img src="recursos/01 - The Awakening of Fire.png" alt="Capa da Faixa" class="mobile-cover-img" id="mobileCoverImg">
+            </section>
+
+            <section class="mobile-controls-wrapper">
+                <div class="mobile-meta-container">
+                    <h1 class="mobile-song-title" id="mobileSongTitle">01 - The Awakening of Fire</h1>
+                    <div class="mobile-artist-name">Symphony of Six Blades</div>
+                </div>
+
+                <div class="mobile-progress-box">
+                    <div class="mobile-scrubber-track" id="mobileScrubberTrack">
+                        <div class="mobile-scrubber-fill" id="mobileScrubberFill"></div>
+                    </div>
+                    <div class="mobile-timestamps">
+                        <span id="mobileCurrentTime">0:00</span>
+                        <span id="mobileTotalDuration">0:00</span>
+                    </div>
+                </div>
+
+                <div class="mobile-controls">
+                    <button class="mobile-btn" id="mobileBtnPrev">⏮</button>
+                    <button class="mobile-btn mobile-play-btn" id="mobilePlayPauseBtn">▶</button>
+                    <button class="mobile-btn" id="mobileBtnNext">⏭</button>
+                </div>
+
+                <footer class="mobile-footer-nav">
+                    <button class="mobile-nav-item" onclick="openDrawer('tracks')">
+                        <span class="icon">⚔️</span>
+                        <span>As 6 Lâminas</span>
+                    </button>
+                    <button class="mobile-nav-item" onclick="openDrawer('lyrics')">
+                        <span class="icon">📜</span>
+                        <span>Rúnico / Letra</span>
+                    </button>
+                </footer>
+            </section>
+        </main>
+
+        <!-- Bottom Sheet Drawer -->
+        <aside class="sheet-drawer" id="mobileSheetDrawer">
+            <div class="drawer-grabber" onclick="closeDrawer()"></div>
+            <div class="drawer-header">
+                <h3 id="mobileDrawerTitle">Faixas</h3>
+                <button class="drawer-close" onclick="closeDrawer()">✕</button>
+            </div>
+            <div class="drawer-body" id="mobileDrawerBody"></div>
+        </aside>
+    </div>
+
+    <!-- MOTOR DE ÁUDIO ÚNICO -->
     <audio id="meuPlayer" src="recursos/01 - The Awakening of Fire_mastered.wav"></audio>
-
-    <div id="customPlayer">
-        <button id="prevBtn" class="control-btn side-btn">⏮</button>
-        <button id="playPauseBtn" class="control-btn">▶</button>
-        <button id="nextBtn" class="control-btn side-btn">⏭</button>
-        
-        <span id="currentTime" class="time-text">0:00</span>
-        <input type="range" id="timeline" value="0" min="0" step="1">
-        <span id="durationTime" class="time-text">0:00</span>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // UPDATE 2: Todas as faixas apontando para a versão masterizada em .wav
+        const trackCovers = [
+            "recursos/01 - The Awakening of Fire.png",
+            "recursos/02 - The Glacial Requiem.png",
+            "recursos/03 - The Lightning Cathedral.png",
+            "recursos/04 - The Venomous Sacrament.png",
+            "recursos/05 - The Zenith of Light.png",
+            "recursos/06 - The Weight of the Void.png",
+            "recursos/07 - The Architect of Agony (Labéu’s Duel).png",
+            "recursos/08 - The Beast King’s Downfall.png",
+            "recursos/09 - The Great Betrayal (The Hollow Victory).png",
+            "recursos/10 - The New Monarch (The Cycle of the Brand).png"
+        ];
+
         const tracks = [
             "recursos/01 - The Awakening of Fire_mastered.wav",
             "recursos/02 - The Glacial Requiem_mastered.wav",
@@ -389,561 +718,76 @@
             "10 - The New Monarch"
         ];
 
-        // Letras Puras em Inglês
+        const romanNumerals = ["Música I", "Música II", "Música III", "Música IV", "Música V", "Música VI", "Música VII", "Música VIII", "Música IX", "Música X"];
+
         const lyricsData = [
-            `[Verse 1]
-            The iron snapped against the titan’s hide,
-            A broken soldier knelt upon the clay,
-            With nowhere left for a tired man to hide,
-            As shadows gathered to claim their easy prey.
+            `[Verse 1]\nThe iron snapped against the titan’s hide,\nA broken soldier knelt upon the clay,\nWith nowhere left for a tired man to hide,\nAs shadows gathered to claim their easy prey.\n\n[Verse 2]\nThe silence screamed across the dying field,\nWhere rusted armor met the jagged stone,\nThe fate of kings was finally revealed,\nLeaving the warrior broken and alone.\n\n[Pre-Chorus]\nThe flesh ignites in a searing flare,\nA heat the world has never known!\n\n[Chorus]\nOh, Knight of the Brand, rise from the dust!\nWith the Sword of Fire in your grip!\nIn ancient steel, we place our trust,\nAs the mortal world begins to slip!`,
 
-            [Verse 2]
-            The silence screamed across the dying field,
-            Where rusted armor met the jagged stone,
-            The fate of kings was finally revealed,
-            Leaving the warrior broken and alone.
+            `[Verse 1]\nThrough mountain peaks where frozen spirits cry,\nHe marched beneath a sky of hollow gray,\nThe Frost-Giants emerged to watch him die,\nAnd block the icy hazards in his way.\n\n[Verse 2]\nHe reached into the air and caught the wind,\nHis fingers turning white as winter bone,\nThe atmosphere itself was thinned,\nBy a coldness he could finally call his own.\n\n[Pre-Chorus]\nThe mist hardens into a jagged spine,\nThe pulse of the blizzard starts to beat!\n\n[Chorus]\nWield the Ice Blade, sharp and divine!\nFreeze the blood of the monsters you meet!\nA frozen star in a lonely shrine,\nTurning the tundra into their defeat!`,
 
-            [Pre-Chorus]
-            The flesh ignites in a searing flare,
-            A heat the world has never known!
+            `[Verse 1]\nThe sky turned black above the marble halls,\nWhere lightning-serpents danced among the rain,\nThe Knight climbed up the crumbling outer walls,\nIgnoring every bruise and every pain.\n\n[Verse 2]\nThe traps of wire and pressure-plates of old,\nCould not compare to the static in his hand,\nA jagged spark, a story to be told,\nOf a thunderclap that echoed through the land.\n\n[Pre-Chorus]\nThe scent of ozone fills the heavy air,\nThe clouds descend to touch the hilt!\n\n[Chorus]\nSword of Lightning, a blinding glare!\nDestroying the kingdoms that sin has built!\nA strike so fast they can only stare,\nAs the blood of the wicked is finally spilt!`,
 
-            [Chorus]
-            Oh, Knight of the Brand, rise from the dust!
-            With the Sword of Fire in your grip!
-            In ancient steel, we place our trust,
-            As the mortal world begins to slip!
+            `[Verse 1]\nIn swamps where toxic vapors slowly creep,\nAnd serpents wait beneath the emerald scum,\nThe Knight waded through waters dark and deep,\nBeating the rhythm of a funeral drum.\n\n[Verse 2]\nMechanical traps with poisoned iron darts,\nSprang from the trees to pierce his weary chest,\nBut he had venom in his hidden parts,\nTo put the jungle’s cruelty to the test.\n\n[Pre-Chorus]\nA sickly green begins to drip and flow,\nFrom the palm that carries the blight!\n\n[Chorus]\nLazarus Blade, let the poison grow,\nIn the heart of the swamp and the night!\nThe monsters wither from a single blow,\nAs they choke on the Knight’s toxic might!`,
 
-            [Verse 3]
-            But then a fever burned beneath his skin,
-            The right arm glowed with veins of molten gold,
-            A scream of power rose from deep within,
-            A secret story waiting to unfold.
+            `[Verse 1]\nUpon the highest spire of the world,\nWhere solar rays are focused like a lens,\nA winged horror had its sails unfurled,\nTo guard the treasure of the ancient dens.\n\n[Verse 2]\nThe Knight stood tall, his arm a beam of sun,\nThe darkness in the corners turned to ash,\nThe battle for the day had just begun,\nIn a brilliant, blinding, holy flash.\n\n[Pre-Chorus]\nThe heavens open to bless the steel,\nPure radiance burns in his eyes!\n\n[Chorus]\nSword of Light, make the demons kneel,\nUnder the glow of the midday skies!\nThe truth is a wound that will never heal,\nFor the king of the monsters and lies!`,
 
-            [Verse 4]
-            The mystic pulse begins to override,
-            A spectral forge is screaming in his veins,
-            With nowhere left for ancient gods to hide,
-            He breaks the rhythm of his mortal chains!
+            `[Verse 1]\nBut every victory had a hidden cost,\nThe arm grew heavy, obsidian and cold,\nThe man he was was slowly being lost,\nTo a hunger that was arrogant and bold,\nA dark descent that never can be told.\n\n[Verse 2]\nThe sixth blade whispered from the hollow dark,\nA shadow-edge that drank the surrounding light,\nIt left upon his soul a blackened mark,\nTurning his inner morning into night,\nUntil the wrong begins to feel so right.\n\n[Pre-Chorus]\nThe void is calling for one more soul,\nThe darkness is thirsty and wide!\n\n[Chorus]\nSword of Shadow, take your heavy toll,\nWith nowhere for the spirit to hide!\nLose your mind to the black control,\nAs the hero is buried inside,\nDrowning in the rising ebon tide!`,
 
-            [Pre-Chorus]
-            The flesh ignites in a searing flare,
-            A heat the world has never known!
+            `[Verse 1]\nLabéu emerged from gears and clockwork steam,\nA master of the wire and hidden blade,\nHe turned the Knight’s survival to a dream,\nInside the trap-filled temple he had made.\n\n[Verse 2]\nSteam-powered scythes cut through the heavy air,\nAnd pressure-plates unleashed a hail of lead,\nThe Architect watched on with hollow stare,\nAlready counting out the warrior dead.\n\n[Pre-Chorus]\nThe clock is ticking toward the final breath,\nThe Architect is weaving webs of death!\n\n[Chorus]\nBreak the machine with a strike of fire!\nMelt the gears of the cold designer!\nRise from the trap and the funeral pyre,\nThe Knight becomes the world’s refiner!\nMaster of Swords, pull the devil’s wire!`,
 
-            [Chorus]
-            Oh, Knight of the Brand, rise from the dust!
-            With the Sword of Fire in your grip!
-            In ancient steel, we place our trust,
-            As the mortal world begins to slip!
-            `, // 01
-                        
-            `[Verse 1]
-            Through mountain peaks where frozen spirits cry,
-            He marched beneath a sky of hollow gray,
-            The Frost-Giants emerged to watch him die,
-            And block the icy hazards in his way.
+            `[Verse 1]\nThe Beast King roared upon his throne of bone,\nA titan carved from primal rage and fear,\nHe shook the earth and claimed it as his own,\nAs the Knight of the Brand drew finally near.\n\n[Verse 2]\nThe monster spat a wave of abyssal flame,\nTo turn the silver armor into dust,\nThe Knight called out the Frost-Blade's ancient name,\nAnd froze the fire into a jagged crust.\n\n[Pre-Chorus]\nSix souls are screaming in a single hand,\nThe greatest power that the gods have planned!\n\n[Chorus]\nShatter the crown of the primal king!\nLet the six-fold anthem loudly ring!\nThrough the storm and the blood, the steel will swing,\nTo end the reign of the beastly thing!\nThe era of the monster is withering!`,
 
-            [Verse 2]
-            He reached into the air and caught the wind,
-            His fingers turning white as winter bone,
-            The atmosphere itself was thinned,
-            By a coldness he could finally call his own.
+            `[Verse 1]\nThe Beast is dead, the silence fills the hall,\nBut why does victory feel like a cage?\nThe six-fold power starts to climb and crawl,\nWriting a darker and a bloodier page,\nThe Knight is shaking with a silent rage,\nAs shadows dance upon his final stage.\n\n[Verse 2]\nThe brand upon his arm begins to spread,\nLike obsidian vines across his skin,\nHe hears the whispers of the ancient dead,\nExplaining where the monsters truly begin,\nA heavy price for every holy sin,\nThe outer shell is wearing paper thin.\n\n[Pre-Chorus]\nThe keys weren't meant to set the kingdom free,\nBut to unlock the nightmare you would be!\n\n[Chorus]\nOh, the irony of the hero’s blade!\nA golden throne within a house of shade!\nThe debt of blood is finally being paid,\nWatch the memory of the human fade!\nYou are the monster that you just betrayed!`,
 
-            [Pre-Chorus]
-            The mist hardens into a jagged spine,
-            The pulse of the blizzard starts to beat!
-
-            [Chorus]
-            Wield the Ice Blade, sharp and divine!
-            Freeze the blood of the monsters you meet!
-            A frozen star in a lonely shrine,
-            Turning the tundra into their defeat!
-
-            [Verse 3]
-            The path is treacherous and paved with glass,
-            Where ancient hunters wait to claim their prize,
-            No mortal man was ever meant to pass,
-            The frost is blooming deep within his eyes,
-            And every breath he takes is filled with lies.
-
-            [Verse 4]
-            His armored boots are cracking through the floe,
-            A silver light is leaking from his palm,
-            The monsters tremble as the temperatures go low,
-            He stands within the center of the storm so calm,
-            Singing a frozen, dark and hollow psalm.
-
-            [Pre-Chorus]
-            The mist hardens into a jagged spine,
-            The pulse of the blizzard starts to beat!
-
-            [Chorus]
-            Wield the Ice Blade, sharp and divine!
-            Freeze the blood of the monsters you meet!
-            A frozen star in a lonely shrine,
-            Turning the tundra into their defeat!`, // 02
-            `[Verse 1]
-            The sky turned black above the marble halls,
-            Where lightning-serpents danced among the rain,
-            The Knight climbed up the crumbling outer walls,
-            Ignoring every bruise and every pain.
-
-            [Verse 2]
-            The traps of wire and pressure-plates of old,
-            Could not compare to the static in his hand,
-            A jagged spark, a story to be told,
-            Of a thunderclap that echoed through the land.
-
-            [Pre-Chorus]
-            The scent of ozone fills the heavy air,
-            The clouds descend to touch the hilt!
-
-            [Chorus]
-            Sword of Lightning, a blinding glare!
-            Destroying the kingdoms that sin has built!
-            A strike so fast they can only stare,
-            As the blood of the wicked is finally spilt!
-
-            [Verse 3]
-            Voltage is surging through his metal veins,
-            A blue-white fire blooming in his chest,
-            He shatters all the iron-wrought remains,
-            And puts the ancient architects to rest.
-
-            [Verse 4]
-            The gargoyles crumble into dust and sand,
-            As high-frequency blades begin to roar,
-            He holds the power of the storm in hand,
-            And kicks down every heavy temple door!
-
-            [Pre-Chorus]
-            The scent of ozone fills the heavy air,
-            The clouds descend to touch the hilt!
-
-            [Chorus]
-            Sword of Lightning, a blinding glare!
-            Destroying the kingdoms that sin has built!
-            A strike so fast they can only stare,
-            As the blood of the wicked is finally spilt!`, // 03
-            `[Verse 1]
-            In swamps where toxic vapors slowly creep,
-            And serpents wait beneath the emerald scum,
-            The Knight waded through waters dark and deep,
-            Beating the rhythm of a funeral drum.
-
-            [Verse 2]
-            Mechanical traps with poisoned iron darts,
-            Sprang from the trees to pierce his weary chest,
-            But he had venom in his hidden parts,
-            To put the jungle’s cruelty to the test.
-
-            [Pre-Chorus]
-            A sickly green begins to drip and flow,
-            From the palm that carries the blight!
-
-            [Chorus]
-            Lazarus Blade, let the poison grow,
-            In the heart of the swamp and the night!
-            The monsters wither from a single blow,
-            As they choke on the Knight’s toxic might!
-
-            [Verse 3]
-            The roots are reaching for his silver greaves,
-            A thousand eyes are watching from the mud,
-            He cuts through rot and all the dying leaves,
-            While ancient ichor mixes with his blood,
-            He stands a god amidst the rising flood.
-
-            [Verse 4]
-            The air is thick with every breath he steals,
-            His arm is burning with a corrosive grace,
-            The ground beneath his heavy armor reels,
-            As he unveils the horror of his face,
-            To erase the darkness of this hollow place.
-
-            [Pre-Chorus]
-            A sickly green begins to drip and flow,
-            From the palm that carries the blight!
-
-            [Chorus]
-            Lazarus Blade, let the poison grow,
-            In the heart of the swamp and the night!
-            The monsters wither from a single blow,
-            As they choke on the Knight’s toxic might!`, // 04
-            `[Verse 1]
-            Upon the highest spire of the world,
-            Where solar rays are focused like a lens,
-            A winged horror had its sails unfurled,
-            To guard the treasure of the ancient dens.
-
-            [Verse 2]
-            The Knight stood tall, his arm a beam of sun,
-            The darkness in the corners turned to ash,
-            The battle for the day had just begun,
-            In a brilliant, blinding, holy flash.
-
-            [Verse 3]
-            The sacred force provides a warning cry,
-            That evil cannot stand against the blessed,
-            Baptized beneath the zenith of the sky,
-            He puts the ancient infinite to test.
-
-            [Pre-Chorus]
-            The heavens open to bless the steel,
-            Pure radiance burns in his eyes!
-
-            [Chorus]
-            Sword of Light, make the demons kneel,
-            Under the glow of the midday skies!
-            The truth is a wound that will never heal,
-            For the king of the monsters and lies!
-
-            [Verse 4]
-            He walks the edge of the golden clouds above,
-            With wings of fire and a heart of burning white,
-            It’s not a message of mercy or of love,
-            But the crushing weight of the midday light,
-            Banishing the terror of the endless night.
-
-            [Verse 5]
-            The sun itself is trapped within his veins,
-            A holy fever that no mortal should endure,
-            He breaks the bonds of his earthly pains,
-            In a world that’s broken, cold and impure,
-            His radiant strike is the final cure.
-
-            [Pre-Chorus]
-            The heavens open to bless the steel,
-            Pure radiance burns in his eyes!
-
-            [Chorus]
-            Sword of Light, make the demons kneel,
-            Under the glow of the midday skies!
-            The truth is a wound that will never heal,
-            For the king of the monsters and lies!`, // 05
-            `[Verse 1]
-            But every victory had a hidden cost,
-            The arm grew heavy, obsidian and cold,
-            The man he was was slowly being lost,
-            To a hunger that was arrogant and bold,
-            A dark descent that never can be told.
-
-            [Verse 2]
-            The sixth blade whispered from the hollow dark,
-            A shadow-edge that drank the surrounding light,
-            It left upon his soul a blackened mark,
-            Turning his inner morning into night,
-            Until the wrong begins to feel so right.
-
-            [Pre-Chorus]
-            The void is calling for one more soul,
-            The darkness is thirsty and wide!
-
-            [Verse 3]
-            His fingers claw against the empty air,
-            Seeking a pulse in a heart made of stone,
-            He finds no comfort in a silent prayer,
-            For even God has left him all alone,
-            Upon a path that leads to the unknown.
-
-            [Verse 4]
-            The weight of shadows drags his spirit down,
-            Beneath the surface of a shoreless sea,
-            He trades his glory for a thorny crown,
-            Accepting what he was always meant to be,
-            A slave to darkness, never to be free.
-
-            [Pre-Chorus]
-            The void is calling for one more soul,
-            The darkness is thirsty and wide!
-
-            [Chorus]
-            Sword of Shadow, take your heavy toll,
-            With nowhere for the spirit to hide!
-            Lose your mind to the black control,
-            As the hero is buried inside,
-            Drowning in the rising ebon tide!`, // 06
-            `[Verse 1]
-            Labéu emerged from gears and clockwork steam,
-            A master of the wire and hidden blade,
-            He turned the Knight’s survival to a dream,
-            Inside the trap-filled temple he had made.
-
-            [Verse 2]
-            Steam-powered scythes cut through the heavy air,
-            And pressure-plates unleashed a hail of lead,
-            The Architect watched on with hollow stare,
-            Already counting out the warrior dead.
-
-            [Verse 3]
-            A wall of saws began to grind and roar,
-            Designed to shred the spirit and the bone,
-            He flooded poison through the marble floor,
-            To claim the life of he who stood alone.
-
-            [Pre-Chorus]
-            The clock is ticking toward the final breath,
-            The Architect is weaving webs of death!
-
-            [Chorus]
-            Break the machine with a strike of fire!
-            Melt the gears of the cold designer!
-            Rise from the trap and the funeral pyre,
-            The Knight becomes the world’s refiner!
-            Master of Swords, pull the devil’s wire!
-
-            [Verse 4]
-            Labéu commands a storm of jagged glass,
-            That flies like silver hornets through the room,
-            But as the Knight begins to move and pass,
-            He strikes with Ice to freeze the gears of doom,
-            And turns the hall into a frozen tomb.
-
-            [Verse 5]
-            The Architect unleashes tongues of flame,
-            From pipes hidden behind the ancient walls,
-            The Knight invokes the Lightning's holy name,
-            The current surges through the marble halls,
-            As every mechanical construct falls.
-
-            [Verse 6]
-            A final strike of Poison and of Light,
-            Corrodes the brass and blinds the master’s eye,
-            Labéu is screaming in the sudden night,
-            As all his golden blueprints start to die,
-            Beneath a steel and elemental sky.
-
-            [Pre-Chorus]
-            The clock is ticking toward the final breath,
-            The Architect is weaving webs of death!
-
-            [Chorus]
-            Break the machine with a strike of fire!
-            Melt the gears of the cold designer!
-            Rise from the trap and the funeral pyre,
-            The Knight becomes the world’s refiner!
-            Master of Swords, pull the devil’s wire!`, // 07
-            `
-            [Verse 1]
-            The Beast King roared upon his throne of bone,
-            A titan carved from primal rage and fear,
-            He shook the earth and claimed it as his own,
-            As the Knight of the Brand drew finally near.
-
-            [Verse 2]
-            The monster spat a wave of abyssal flame,
-            To turn the silver armor into dust,
-            The Knight called out the Frost-Blade's ancient name,
-            And froze the fire into a jagged crust.
-
-            [Verse 3]
-            A thousand claws descended from the height,
-            Like falling stars of obsidian and hate,
-            The Knight invoked the Sword of Holy Light,
-            To blind the King and seal his wretched fate.
-
-            [Pre-Chorus]
-            Six souls are screaming in a single hand,
-            The greatest power that the gods have planned!
-
-            [Chorus]
-            Shatter the crown of the primal king!
-            Let the six-fold anthem loudly ring!
-            Through the storm and the blood, the steel will swing,
-            To end the reign of the beastly thing!
-            The era of the monster is withering!
-
-            [Verse 4]
-            The Beast King summoned shadows from the floor,
-            To drag the warrior to the deep unknown,
-            But Poison-blades began to seep and roar,
-            Corroding every dark and ancient stone,
-            The monster’s shadow withered to the bone,
-            As the Knight reclaimed the kingdom for his own.
-
-            [Verse 5]
-            The King unleashed a thunderclapping strike,
-            Enough to split the heavens and the sea,
-            The Knight met lightning with a lightning-spike,
-            A clash of gods for all the world to see,
-            He struck the final blow to set us free,
-            Fulfilling the violent, dark decree,
-            The Beast King falls upon his bended knee!
-
-            [Pre-Chorus]
-            Six souls are screaming in a single hand,
-            The greatest power that the gods have planned!
-
-            [Chorus]
-            Shatter the crown of the primal king!
-            Let the six-fold anthem loudly ring!
-            Through the storm and the blood, the steel will swing,
-            To end the reign of the beastly thing!
-            The era of the monster is withering!`, // 08
-            `[Verse 1]
-            The Beast is dead, the silence fills the hall,
-            But why does victory feel like a cage?
-            The six-fold power starts to climb and crawl,
-            Writing a darker and a bloodier page,
-            The Knight is shaking with a silent rage,
-            As shadows dance upon his final stage.
-
-            [Verse 2]
-            The brand upon his arm begins to spread,
-            Like obsidian vines across his skin,
-            He hears the whispers of the ancient dead,
-            Explaining where the monsters truly begin,
-            A heavy price for every holy sin,
-            The outer shell is wearing paper thin.
-
-            [Pre-Chorus]
-            The keys weren't meant to set the kingdom free,
-            But to unlock the nightmare you would be!
-
-            [Chorus]
-            Oh, the irony of the hero’s blade!
-            A golden throne within a house of shade!
-            The debt of blood is finally being paid,
-            Watch the memory of the human fade!
-            You are the monster that you just betrayed!
-
-            [Verse 3]
-            His plate of silver turns to jagged scale,
-            His human eyes are burning out of sight,
-            The prayer for mercy is of no avail,
-            As he consumes the remnants of the light.
-
-            [Verse 4]
-            The six blades melt into a single spine,
-            A crown of bone is growing from his head,
-            He drinks the darkness like a vintage wine,
-            And walks among the spirits of the dead.
-
-            [Verse 5]
-            The man is gone, the vessel is complete,
-            A new disaster for the world to face,
-            He feels the pulse beneath his monstrous feet,
-            A god of ruin in a holy place!
-
-            [Pre-Chorus]
-            The keys weren't meant to set the kingdom free,
-            But to unlock the nightmare you would be!
-
-            [Chorus]
-            Oh, the irony of the hero’s blade!
-            A golden throne within a house of shade!
-            The debt of blood is finally being paid,
-            Watch the memory of the human fade!
-            You are the monster that you just betrayed!`, // 09
-            `[Verse 1]
-            He sits upon the throne of jagged glass,
-            Where ancient kings have rotted into dust,
-            He watches all the mortal ages pass,
-            Corroded by his power and his lust.
-
-            [Verse 2]
-            The six-fold brand is now a pulsing heart,
-            That beats within the center of the hall,
-            He tore the fabric of the world apart,
-            To be the one who rules above it all.
-
-            [Verse 3]
-            The silver armor is a blackened shell,
-            A prison made of obsidian and bone,
-            He brought the very architecture of hell,
-            To build a kingdom he can call his own.
-
-            [Pre-Chorus]
-            The hero died a thousand deaths inside,
-            The monster lives with nothing left to hide!
-
-            [Chorus]
-            Hail to the Monarch of the Endless Night!
-            The dark successor of the stolen light!
-            The crown is heavy and the path is white,
-            With bones of those who dared to stand and fight!
-            The cycle turns within his hollow sight!
-
-            [Verse 4]
-            The pittance of his mercy is a blade,
-            That falls upon the necks of those who pray,
-            He lives within the silence he has made,
-            Where sun and moon have simply bled away.
-
-            [Verse 5]
-            Across the borders of the shattered land,
-            A new young warrior dreams of golden fame,
-            To challenge the corruption of the Brand,
-            And scream the New Monarch’s cursed name.
-
-            [Verse 6]
-            He smiles behind his mask of iron fire,
-            Waiting for the one to take his place,
-            To pull the hero through the bloody mire,
-            And grant him the extinction of his grace.
-
-            [Pre-Chorus]
-            The hero died a thousand deaths inside,
-            The monster lives with nothing left to hide!
-
-            [Chorus]
-            Hail to the Monarch of the Endless Night!
-            The dark successor of the stolen light!
-            The crown is heavy and the path is white,
-            With bones of those who dared to stand and fight!
-            The cycle turns within his hollow sight!`  // 10
+            `[Verse 1]\nHe sits upon the throne of jagged glass,\nWhere ancient kings have rotted into dust,\nHe watches all the mortal ages pass,\nCorroded by his power and his lust.\n\n[Verse 2]\nThe six-fold brand is now a pulsing heart,\nThat beats within the center of the hall,\nHe tore the fabric of the world apart,\nTo be the one who rules above it all.\n\n[Pre-Chorus]\nThe hero died a thousand deaths inside,\nThe monster lives with nothing left to hide!\n\n[Chorus]\nHail to the Monarch of the Endless Night!\nThe dark successor of the stolen light!\nThe crown is heavy and the path is white,\nWith bones of those who dared to stand and fight!\nThe cycle turns within his hollow sight!`
         ];
 
+        let currentIndex = 0;
+        const playerAudio = document.getElementById('meuPlayer');
+
+        // Referências Desktop
         const bgLayer = document.getElementById('bgLayer');
         const leftPanel = document.getElementById('leftPanel'); 
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const playerAudio = document.getElementById('meuPlayer'); 
-        const timeline = document.getElementById('timeline');
-        const currentTimeEl = document.getElementById('currentTime');
-        const durationTimeEl = document.getElementById('durationTime');
-        const lyricsTitle = document.getElementById('lyricsTitle');
-        const lyricsContent = document.getElementById('lyricsContent');
+        const desktopPlayPauseBtn = document.getElementById('desktopPlayPauseBtn');
+        const desktopPrevBtn = document.getElementById('desktopPrevBtn');
+        const desktopNextBtn = document.getElementById('desktopNextBtn');
+        const desktopTimeline = document.getElementById('desktopTimeline');
+        const desktopCurrentTime = document.getElementById('desktopCurrentTime');
+        const desktopDurationTime = document.getElementById('desktopDurationTime');
+        const desktopLyricsTitle = document.getElementById('desktopLyricsTitle');
+        const desktopLyricsContent = document.getElementById('desktopLyricsContent');
+        const carouselInner = document.getElementById('carouselInner');
 
-        lyricsTitle.textContent = trackNames[0];
-        lyricsContent.textContent = lyricsData[0];
+        // Constrói os slides do carrossel do desktop
+        trackCovers.forEach((cover, idx) => {
+            const item = document.createElement('div');
+            item.className = `carousel-item ${idx === 0 ? 'active' : ''}`;
+            item.innerHTML = `
+                <img src="${cover}" class="d-block w-100" alt="${trackNames[idx]}">
+                <div class="carousel-caption-overlay">
+                    <h5>${romanNumerals[idx]}</h5><p>${trackNames[idx].replace(/^[0-9]+\s*-\s*/, '')}</p>
+                </div>
+            `;
+            carouselInner.appendChild(item);
+        });
 
         const myCarousel = document.getElementById('songsCarousel');
-        const carouselInstance = new bootstrap.Carousel(myCarousel, {
-            interval: false, 
-            wrap: true      
-        });
+        const carouselInstance = new bootstrap.Carousel(myCarousel, { interval: false, wrap: true });
 
-        window.g_playNextTrackOnSlide = false; 
-        
-        myCarousel.addEventListener('slide.bs.carousel', function (e) {
-            const shouldForcePlay = window.g_playNextTrackOnSlide;
-            window.g_playNextTrackOnSlide = false; 
-
-            lyricsTitle.textContent = trackNames[e.to];
-            lyricsContent.textContent = lyricsData[e.to];
-
-            const manualIsPlaying = !playerAudio.paused; 
-            playerAudio.src = tracks[e.to];
-            
-            if (manualIsPlaying || shouldForcePlay) {
-                let playPromise = playerAudio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(_ => {
-                        playPauseBtn.textContent = '⏸';
-                    }).catch(error => {
-                        playPauseBtn.textContent = '▶';
-                        bgLayer.classList.remove('player-inactive');
-                        leftPanel.classList.remove('is-playing');
-                    });
-                }
-            }
-        });
-
-        playerAudio.addEventListener('ended', function() {
-            window.g_playNextTrackOnSlide = true; 
-            carouselInstance.next();
-        });
+        // Referências Mobile
+        const mobileBgArt = document.getElementById('mobileBgArt');
+        const mobileCoverImg = document.getElementById('mobileCoverImg');
+        const mobileSongTitle = document.getElementById('mobileSongTitle');
+        const mobilePlayPauseBtn = document.getElementById('mobilePlayPauseBtn');
+        const mobileBtnPrev = document.getElementById('mobileBtnPrev');
+        const mobileBtnNext = document.getElementById('mobileBtnNext');
+        const mobileScrubberTrack = document.getElementById('mobileScrubberTrack');
+        const mobileScrubberFill = document.getElementById('mobileScrubberFill');
+        const mobileCurrentTime = document.getElementById('mobileCurrentTime');
+        const mobileTotalDuration = document.getElementById('mobileTotalDuration');
+        const mobileDrawer = document.getElementById('mobileSheetDrawer');
+        const mobileDrawerTitle = document.getElementById('mobileDrawerTitle');
+        const mobileDrawerBody = document.getElementById('mobileDrawerBody');
 
         function formatTime(seconds) {
             if (isNaN(seconds)) return "0:00";
@@ -952,36 +796,166 @@
             return min + ":" + (sec < 10 ? "0" + sec : sec);
         }
 
-        playerAudio.addEventListener('loadedmetadata', function() {
-            timeline.max = playerAudio.duration;
-            durationTimeEl.textContent = formatTime(playerAudio.duration);
-        });
+        function loadTrack(index, autoPlay = true) {
+            currentIndex = index;
+            playerAudio.src = tracks[currentIndex];
 
-        playPauseBtn.addEventListener('click', function() {
-            if (playerAudio.paused) {
-                playerAudio.play(); 
-                bgLayer.classList.add('player-inactive'); 
-                leftPanel.classList.add('is-playing'); 
-                playPauseBtn.textContent = '⏸'; 
+            // Atualiza Desktop
+            desktopLyricsTitle.textContent = trackNames[currentIndex];
+            desktopLyricsContent.textContent = lyricsData[currentIndex];
+            carouselInstance.to(currentIndex);
+
+            // Atualiza Mobile
+            mobileSongTitle.textContent = trackNames[currentIndex];
+            mobileCoverImg.src = trackCovers[currentIndex];
+            mobileBgArt.style.backgroundImage = `url('${trackCovers[currentIndex]}')`;
+
+            if (autoPlay) {
+                playerAudio.play().then(() => {
+                    updatePlayPauseUI(true);
+                }).catch(() => {
+                    updatePlayPauseUI(false);
+                });
             } else {
-                playerAudio.pause(); 
-                bgLayer.classList.remove('player-inactive'); 
-                leftPanel.classList.remove('is-playing'); 
-                playPauseBtn.textContent = '▶'; 
+                updatePlayPauseUI(false);
+            }
+        }
+
+        function updatePlayPauseUI(isPlaying) {
+            if (isPlaying) {
+                desktopPlayPauseBtn.textContent = '⏸';
+                mobilePlayPauseBtn.textContent = '⏸';
+                bgLayer.classList.add('player-inactive');
+                leftPanel.classList.add('is-playing');
+            } else {
+                desktopPlayPauseBtn.textContent = '▶';
+                mobilePlayPauseBtn.textContent = '▶';
+                bgLayer.classList.remove('player-inactive');
+                leftPanel.classList.remove('is-playing');
+            }
+        }
+
+        function togglePlayPause() {
+            if (playerAudio.paused) {
+                playerAudio.play();
+                updatePlayPauseUI(true);
+            } else {
+                playerAudio.pause();
+                updatePlayPauseUI(false);
+            }
+        }
+
+        desktopPlayPauseBtn.addEventListener('click', togglePlayPause);
+        mobilePlayPauseBtn.addEventListener('click', togglePlayPause);
+
+        function prevTrack() {
+            let idx = currentIndex - 1;
+            if (idx < 0) idx = tracks.length - 1;
+            loadTrack(idx, true);
+        }
+
+        function nextTrack() {
+            let idx = currentIndex + 1;
+            if (idx >= tracks.length) idx = 0;
+            loadTrack(idx, true);
+        }
+
+        desktopPrevBtn.addEventListener('click', prevTrack);
+        desktopNextBtn.addEventListener('click', nextTrack);
+        mobileBtnPrev.addEventListener('click', prevTrack);
+        mobileBtnNext.addEventListener('click', nextTrack);
+
+        // Slide do carrossel no PC
+        myCarousel.addEventListener('slide.bs.carousel', function (e) {
+            if (e.to !== currentIndex) {
+                const wasPlaying = !playerAudio.paused;
+                currentIndex = e.to;
+                playerAudio.src = tracks[currentIndex];
+                desktopLyricsTitle.textContent = trackNames[currentIndex];
+                desktopLyricsContent.textContent = lyricsData[currentIndex];
+
+                mobileSongTitle.textContent = trackNames[currentIndex];
+                mobileCoverImg.src = trackCovers[currentIndex];
+                mobileBgArt.style.backgroundImage = `url('${trackCovers[currentIndex]}')`;
+
+                if (wasPlaying) {
+                    playerAudio.play();
+                    updatePlayPauseUI(true);
+                }
             }
         });
 
-        prevBtn.addEventListener('click', () => carouselInstance.prev());
-        nextBtn.addEventListener('click', () => carouselInstance.next());
-
+        // Eventos do Áudio
         playerAudio.addEventListener('timeupdate', function() {
-            timeline.value = playerAudio.currentTime;
-            currentTimeEl.textContent = formatTime(playerAudio.currentTime);
+            const cur = playerAudio.currentTime;
+            const dur = playerAudio.duration;
+
+            // Desktop
+            desktopTimeline.value = cur;
+            desktopCurrentTime.textContent = formatTime(cur);
+
+            // Mobile
+            if (dur) {
+                const pct = (cur / dur) * 100;
+                mobileScrubberFill.style.width = pct + '%';
+                mobileCurrentTime.textContent = formatTime(cur);
+                mobileTotalDuration.textContent = formatTime(dur);
+            }
         });
 
-        timeline.addEventListener('input', function() {
-            playerAudio.currentTime = timeline.value;
+        playerAudio.addEventListener('loadedmetadata', function() {
+            desktopTimeline.max = playerAudio.duration;
+            desktopDurationTime.textContent = formatTime(playerAudio.duration);
+            mobileTotalDuration.textContent = formatTime(playerAudio.duration);
         });
+
+        playerAudio.addEventListener('ended', function() {
+            nextTrack();
+        });
+
+        desktopTimeline.addEventListener('input', function() {
+            playerAudio.currentTime = desktopTimeline.value;
+        });
+
+        mobileScrubberTrack.addEventListener('click', function(e) {
+            if (!playerAudio.duration) return;
+            const rect = mobileScrubberTrack.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            playerAudio.currentTime = pos * playerAudio.duration;
+        });
+
+        // Gavetas Mobile (Bottom Sheet)
+        function openDrawer(type) {
+            mobileDrawer.classList.add('open');
+            if (type === 'tracks') {
+                mobileDrawerTitle.textContent = "As Seis Lâminas";
+                let html = "";
+                trackNames.forEach((name, idx) => {
+                    html += `
+                        <div class="drawer-track-row ${idx === currentIndex ? 'active' : ''}" onclick="selectTrackFromDrawer(${idx})">
+                            <span>${idx === currentIndex ? '⚔️' : '▶'}</span>
+                            <span>${name}</span>
+                        </div>
+                    `;
+                });
+                mobileDrawerBody.innerHTML = html;
+            } else if (type === 'lyrics') {
+                mobileDrawerTitle.textContent = trackNames[currentIndex];
+                mobileDrawerBody.innerHTML = `<div class="drawer-lyrics-content">${lyricsData[currentIndex]}</div>`;
+            }
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+        }
+
+        function selectTrackFromDrawer(idx) {
+            loadTrack(idx, true);
+            closeDrawer();
+        }
+
+        // Inicializa com a primeira faixa carregada sem tocar imediatamente
+        loadTrack(0, false);
     </script>
 </body>
 </html>
