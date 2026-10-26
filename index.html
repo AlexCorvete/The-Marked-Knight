@@ -219,7 +219,7 @@
                 background: white; color: black; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; 
             }
             .control-btn:hover { transform: scale(1.1); }
-            #playPauseBtn { width: 45px; height: 45px; font-size: 1.3rem; }
+            #desktopPlayPauseBtn { width: 45px; height: 45px; font-size: 1.3rem; }
             .side-btn { width: 35px; height: 35px; font-size: 0.9rem; }
             .time-text { color: rgba(255, 255, 255, 0.8); font-family: sans-serif; font-size: 0.85rem; min-width: 40px; text-align: center; }
 
@@ -238,25 +238,19 @@
 
             body {
                 user-select: none;
+                background-color: #121212;
             }
 
             .mobile-bg-artwork {
                 position: absolute;
                 inset: -25px;
-                background-image: url('recursos/01 - The Awakening of Fire.png');
+                background-image: url('recursos/01.jpeg');
                 background-position: center;
                 background-size: cover;
-                filter: blur(30px) brightness(0.28);
-                transform: scale(1.12);
+                filter: blur(25px) brightness(0.3);
+                transform: scale(1.1);
                 z-index: 1;
                 transition: background-image 0.6s ease;
-            }
-
-            .mobile-bg-vignette {
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(circle at center, rgba(10, 10, 14, 0.45) 0%, rgba(4, 4, 6, 0.9) 100%);
-                z-index: 2;
             }
 
             .mobile-shell {
@@ -267,194 +261,135 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                padding: 2.2rem 1.6rem 1.6rem;
+                padding: 1.5rem 1.5rem 2rem;
                 font-family: 'Montserrat', sans-serif;
             }
 
-            .mobile-top-bar {
+            .mobile-header {
                 display: flex;
-                align-items: center;
                 justify-content: space-between;
-                color: rgba(255, 255, 255, 0.65);
-                text-transform: uppercase;
+                align-items: center;
+                color: white;
             }
 
             .mobile-icon-btn {
                 background: none;
                 border: none;
-                color: #e0d0b0;
-                font-size: 1.3rem;
+                color: #fff;
+                font-size: 1.5rem;
                 cursor: pointer;
-                padding: 6px;
             }
 
-            .mobile-top-info {
-                text-align: center;
+            .mobile-header-actions {
+                display: flex;
+                gap: 15px;
             }
 
-            .mobile-top-info .tag {
-                font-size: 0.72rem;
-                letter-spacing: 2px;
-                color: #e0d0b0;
-                font-family: 'Cinzel', serif;
-            }
-
-            .mobile-top-info .album {
-                font-size: 0.92rem;
-                font-weight: 700;
-                color: #ffffff;
-                font-family: 'Cinzel', serif;
-                margin-top: 2px;
-                letter-spacing: 1px;
-            }
-
-            .mobile-cover-container {
-                width: 100%;
-                aspect-ratio: 1 / 1;
-                margin: auto 0;
+            .mobile-art-wrapper {
+                flex: 1;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                padding: 20px 0;
             }
 
             .mobile-cover-img {
                 width: 100%;
-                height: 100%;
+                max-width: 320px;
+                aspect-ratio: 1/1;
                 object-fit: cover;
-                border-radius: 18px;
-                border: 1px solid rgba(224, 208, 176, 0.35);
-                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(224, 208, 176, 0.15);
-                transition: opacity 0.3s ease;
+                border-radius: 8px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.8);
             }
 
-            .mobile-meta-container {
+            .mobile-album-title {
+                text-align: center;
+                color: rgba(255,255,255,0.8);
+                font-size: 1rem;
+                margin-bottom: 20px;
+                letter-spacing: 1px;
+            }
+
+            .mobile-controls-row {
                 display: flex;
-                flex-direction: column;
-                gap: 4px;
-                margin-bottom: 1.2rem;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 25px;
+                padding: 0 10px;
+            }
+
+            .mobile-controls-row .mobile-icon-btn {
+                font-size: 1.8rem;
+            }
+
+            .mobile-controls-row .small-icon {
+                font-size: 1.2rem;
+                color: rgba(255,255,255,0.5);
+            }
+
+            .play-btn-circle {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background-color: #b33939; /* Vermelho escuro estilo print */
+                color: white;
+                border: none;
+                font-size: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 15px rgba(179, 57, 57, 0.4);
+            }
+
+            .mobile-progress-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 20px;
+                font-size: 0.8rem;
+                color: rgba(255,255,255,0.7);
+            }
+
+            .mobile-timeline {
+                flex: 1;
+                -webkit-appearance: none;
+                width: 100%;
+                background: transparent;
+            }
+
+            .mobile-timeline::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 4px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 2px;
+            }
+
+            .mobile-timeline::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 12px;
+                width: 12px;
+                border-radius: 50%;
+                background: #b33939;
+                margin-top: -4px;
+            }
+
+            .mobile-track-info {
+                text-align: center;
             }
 
             .mobile-song-title {
-                font-family: 'Cinzel', serif;
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: #ffffff;
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: white;
+                margin-bottom: 5px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                letter-spacing: 0.5px;
             }
 
             .mobile-artist-name {
                 font-size: 0.9rem;
-                color: #e0d0b0;
-                font-style: italic;
-                font-family: 'Georgia', serif;
-                letter-spacing: 1px;
-            }
-
-            .mobile-progress-box {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                margin-bottom: 1.2rem;
-            }
-
-            .mobile-scrubber-track {
-                width: 100%;
-                height: 5px;
-                background: rgba(255, 255, 255, 0.2);
-                border-radius: 6px;
-                cursor: pointer;
-                position: relative;
-            }
-
-            .mobile-scrubber-fill {
-                height: 100%;
-                width: 0%;
-                background: linear-gradient(to right, #8c734b, #e0d0b0);
-                border-radius: 6px;
-                position: relative;
-            }
-
-            .mobile-scrubber-fill::after {
-                content: '';
-                position: absolute;
-                right: -5px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 12px;
-                height: 12px;
-                background: #ffffff;
-                border: 2px solid #e0d0b0;
-                border-radius: 50%;
-                box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-            }
-
-            .mobile-timestamps {
-                display: flex;
-                justify-content: space-between;
-                font-size: 0.75rem;
-                color: rgba(255, 255, 255, 0.65);
-            }
-
-            .mobile-controls {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 1rem;
-                margin-bottom: 1.6rem;
-            }
-
-            .mobile-btn {
-                background: none;
-                border: none;
-                color: #ffffff;
-                font-size: 1.4rem;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: transform 0.15s ease;
-            }
-
-            .mobile-btn:active {
-                transform: scale(0.9);
-            }
-
-            .mobile-play-btn {
-                width: 64px;
-                height: 64px;
-                background: #ffffff;
-                color: #0b0c10;
-                border-radius: 50%;
-                font-size: 1.6rem;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
-            }
-
-            .mobile-footer-nav {
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                border-top: 1px solid rgba(255, 255, 255, 0.12);
-                padding-top: 1rem;
-            }
-
-            .mobile-nav-item {
-                background: none;
-                border: none;
-                color: rgba(255, 255, 255, 0.65);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-                font-size: 0.72rem;
-                cursor: pointer;
-                font-family: 'Montserrat', sans-serif;
-            }
-
-            .mobile-nav-item span.icon {
-                font-size: 1.25rem;
+                color: rgba(255,255,255,0.6);
             }
 
             /* Bottom Sheet Drawer */
@@ -463,17 +398,14 @@
                 left: 0;
                 right: 0;
                 bottom: -100%;
-                height: 78%;
-                background: rgba(14, 15, 20, 0.96);
-                backdrop-filter: blur(16px);
-                -webkit-backdrop-filter: blur(16px);
-                border-top: 2px solid #e0d0b0;
-                border-radius: 22px 22px 0 0;
+                height: 75%;
+                background: rgba(18, 18, 18, 0.98);
+                border-radius: 20px 20px 0 0;
                 z-index: 50;
-                transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                transition: bottom 0.3s ease-in-out;
                 display: flex;
                 flex-direction: column;
-                padding: 1.2rem 1.5rem 1.5rem;
+                padding: 1rem;
                 box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
             }
 
@@ -481,74 +413,55 @@
                 bottom: 0;
             }
 
-            .drawer-grabber {
-                width: 44px;
-                height: 5px;
-                background: rgba(255, 255, 255, 0.25);
-                border-radius: 4px;
-                margin: 0 auto 1rem;
-                cursor: pointer;
-            }
-
             .drawer-header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 1rem;
-                border-bottom: 1px solid rgba(224, 208, 176, 0.25);
-                padding-bottom: 0.6rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 1rem;
             }
 
             .drawer-header h3 {
-                font-family: 'Cinzel', serif;
-                color: #e0d0b0;
+                color: #fff;
                 font-size: 1.1rem;
-                letter-spacing: 1px;
             }
 
             .drawer-close {
                 background: none;
                 border: none;
                 color: #fff;
-                font-size: 1.4rem;
+                font-size: 1.5rem;
                 cursor: pointer;
             }
 
             .drawer-body {
                 overflow-y: auto;
                 flex: 1;
-                padding-right: 4px;
             }
 
             .drawer-track-row {
-                padding: 12px 10px;
-                margin: 3px 0;
+                padding: 15px 10px;
                 display: flex;
                 align-items: center;
-                gap: 12px;
-                border-radius: 6px;
-                cursor: pointer;
-                font-size: 0.88rem;
+                gap: 15px;
                 color: #fff;
-                transition: background 0.2s ease;
+                font-size: 0.9rem;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
             }
 
-            .drawer-track-row:hover { background: rgba(224, 208, 176, 0.12); }
-
             .drawer-track-row.active {
-                background: rgba(224, 208, 176, 0.2);
-                color: #e0d0b0;
-                font-weight: 600;
+                color: #b33939;
+                font-weight: bold;
             }
 
             .drawer-lyrics-content {
                 white-space: pre-line;
-                font-family: 'Georgia', serif;
-                font-size: 1.15rem;
-                font-style: italic;
-                line-height: 1.8;
-                color: #d8d8d8;
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #ccc;
                 text-align: center;
+                padding-bottom: 2rem;
             }
         }
     </style>
@@ -611,60 +524,45 @@
          ========================================== -->
     <div id="mobile-root">
         <div class="mobile-bg-artwork" id="mobileBgArt"></div>
-        <div class="mobile-bg-vignette"></div>
 
         <main class="mobile-shell">
-            <header class="mobile-top-bar">
-                <button class="mobile-icon-btn" onclick="openDrawer('tracks')">▼</button>
-                <div class="mobile-top-info">
-                    <div class="tag">ÓPERA ROCK</div>
-                    <div class="album">THE MARKED KNIGHT</div>
+            <header class="mobile-header">
+                <button class="mobile-icon-btn">←</button>
+                <div class="mobile-header-actions">
+                    <button class="mobile-icon-btn" onclick="openDrawer('tracks')">🎵</button>
+                    <button class="mobile-icon-btn" onclick="openDrawer('lyrics')">📜</button>
+                    <button class="mobile-icon-btn">⋮</button>
                 </div>
-                <button class="mobile-icon-btn" onclick="openDrawer('lyrics')">📜</button>
             </header>
 
-            <section class="mobile-cover-container">
-                <img src="recursos/01 - The Awakening of Fire.png" alt="Capa da Faixa" class="mobile-cover-img" id="mobileCoverImg">
-            </section>
+            <div class="mobile-art-wrapper">
+                <img src="recursos/01.jpeg" alt="Album Cover" class="mobile-cover-img" id="mobileCoverImg">
+            </div>
 
-            <section class="mobile-controls-wrapper">
-                <div class="mobile-meta-container">
-                    <h1 class="mobile-song-title" id="mobileSongTitle">01 - The Awakening of Fire</h1>
-                    <div class="mobile-artist-name">Symphony of Six Blades</div>
-                </div>
+            <div class="mobile-album-title">Symphony of Six Blades</div>
 
-                <div class="mobile-progress-box">
-                    <div class="mobile-scrubber-track" id="mobileScrubberTrack">
-                        <div class="mobile-scrubber-fill" id="mobileScrubberFill"></div>
-                    </div>
-                    <div class="mobile-timestamps">
-                        <span id="mobileCurrentTime">0:00</span>
-                        <span id="mobileTotalDuration">0:00</span>
-                    </div>
-                </div>
+            <div class="mobile-controls-row">
+                <button class="mobile-icon-btn small-icon">🔀</button>
+                <button class="mobile-icon-btn" id="mobileBtnPrev">⏮</button>
+                <button class="play-btn-circle" id="mobilePlayPauseBtn">▶</button>
+                <button class="mobile-icon-btn" id="mobileBtnNext">⏭</button>
+                <button class="mobile-icon-btn small-icon">🔁</button>
+            </div>
 
-                <div class="mobile-controls">
-                    <button class="mobile-btn" id="mobileBtnPrev">⏮</button>
-                    <button class="mobile-btn mobile-play-btn" id="mobilePlayPauseBtn">▶</button>
-                    <button class="mobile-btn" id="mobileBtnNext">⏭</button>
-                </div>
+            <div class="mobile-progress-row">
+                <span id="mobileCurrentTime">0:00</span>
+                <input type="range" class="mobile-timeline" id="mobileTimeline" value="0" min="0" step="1">
+                <span id="mobileTotalDuration">0:00</span>
+            </div>
 
-                <footer class="mobile-footer-nav">
-                    <button class="mobile-nav-item" onclick="openDrawer('tracks')">
-                        <span class="icon">⚔️</span>
-                        <span>As 6 Lâminas</span>
-                    </button>
-                    <button class="mobile-nav-item" onclick="openDrawer('lyrics')">
-                        <span class="icon">📜</span>
-                        <span>Rúnico / Letra</span>
-                    </button>
-                </footer>
-            </section>
+            <div class="mobile-track-info">
+                <h2 class="mobile-song-title" id="mobileSongTitle">01 - The Awakening of Fire</h2>
+                <p class="mobile-artist-name">The Marked Knight</p>
+            </div>
         </main>
 
-        <!-- Bottom Sheet Drawer -->
+        <!-- Bottom Sheet Drawer (Menu Deslizante) -->
         <aside class="sheet-drawer" id="mobileSheetDrawer">
-            <div class="drawer-grabber" onclick="closeDrawer()"></div>
             <div class="drawer-header">
                 <h3 id="mobileDrawerTitle">Faixas</h3>
                 <button class="drawer-close" onclick="closeDrawer()">✕</button>
@@ -679,17 +577,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // ATUALIZAÇÃO 1: Imagens simplificadas conforme seu print (01 a 10)
         const trackCovers = [
-            "recursos/01 - The Awakening of Fire.png",
-            "recursos/02 - The Glacial Requiem.png",
-            "recursos/03 - The Lightning Cathedral.png",
-            "recursos/04 - The Venomous Sacrament.png",
-            "recursos/05 - The Zenith of Light.png",
-            "recursos/06 - The Weight of the Void.png",
-            "recursos/07 - The Architect of Agony (Labéu’s Duel).png",
-            "recursos/08 - The Beast King’s Downfall.png",
-            "recursos/09 - The Great Betrayal (The Hollow Victory).png",
-            "recursos/10 - The New Monarch (The Cycle of the Brand).png"
+            "recursos/01.jpeg",
+            "recursos/02.jpeg",
+            "recursos/03.jpeg",
+            "recursos/04.jpeg",
+            "recursos/05.jpeg",
+            "recursos/06.jpeg",
+            "recursos/07.jpeg",
+            "recursos/08.jpeg",
+            "recursos/09.jpeg",
+            "recursos/10.jpeg"
         ];
 
         const tracks = [
@@ -781,8 +680,7 @@
         const mobilePlayPauseBtn = document.getElementById('mobilePlayPauseBtn');
         const mobileBtnPrev = document.getElementById('mobileBtnPrev');
         const mobileBtnNext = document.getElementById('mobileBtnNext');
-        const mobileScrubberTrack = document.getElementById('mobileScrubberTrack');
-        const mobileScrubberFill = document.getElementById('mobileScrubberFill');
+        const mobileTimeline = document.getElementById('mobileTimeline');
         const mobileCurrentTime = document.getElementById('mobileCurrentTime');
         const mobileTotalDuration = document.getElementById('mobileTotalDuration');
         const mobileDrawer = document.getElementById('mobileSheetDrawer');
@@ -896,16 +794,16 @@
 
             // Mobile
             if (dur) {
-                const pct = (cur / dur) * 100;
-                mobileScrubberFill.style.width = pct + '%';
+                mobileTimeline.value = cur;
                 mobileCurrentTime.textContent = formatTime(cur);
-                mobileTotalDuration.textContent = formatTime(dur);
             }
         });
 
         playerAudio.addEventListener('loadedmetadata', function() {
             desktopTimeline.max = playerAudio.duration;
             desktopDurationTime.textContent = formatTime(playerAudio.duration);
+            
+            mobileTimeline.max = playerAudio.duration;
             mobileTotalDuration.textContent = formatTime(playerAudio.duration);
         });
 
@@ -917,11 +815,8 @@
             playerAudio.currentTime = desktopTimeline.value;
         });
 
-        mobileScrubberTrack.addEventListener('click', function(e) {
-            if (!playerAudio.duration) return;
-            const rect = mobileScrubberTrack.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            playerAudio.currentTime = pos * playerAudio.duration;
+        mobileTimeline.addEventListener('input', function() {
+            playerAudio.currentTime = mobileTimeline.value;
         });
 
         // Gavetas Mobile (Bottom Sheet)
@@ -933,7 +828,7 @@
                 trackNames.forEach((name, idx) => {
                     html += `
                         <div class="drawer-track-row ${idx === currentIndex ? 'active' : ''}" onclick="selectTrackFromDrawer(${idx})">
-                            <span>${idx === currentIndex ? '⚔️' : '▶'}</span>
+                            <span>${idx === currentIndex ? '▶' : '🎵'}</span>
                             <span>${name}</span>
                         </div>
                     `;
@@ -954,7 +849,7 @@
             closeDrawer();
         }
 
-        // Inicializa com a primeira faixa carregada sem tocar imediatamente
+        // Inicializa
         loadTrack(0, false);
     </script>
 </body>
